@@ -1,0 +1,24 @@
+{
+  "name": "listr",
+  "version": "1.0.0",
+  "description": "Mid-term app",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "./node_modules/.bin/nodemon -L ./server/index.js"
+  },
+  "author": "Matt Halimo Nik",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "express": "^4.16.4",
+    "knex": "^0.16.3",
+    "method-override": "^3.0.0",
+    "nodemon": "^1.18.10",
+    "pg": "^7.8.1"
+  }
+}
