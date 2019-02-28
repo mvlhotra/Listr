@@ -9,10 +9,6 @@ const PORT = 8080;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// app.get('/', (req, res) => {
-//   res.send('hello world!');
-// });
-
 app.listen(PORT, () => {
   console.log('listening on ', PORT);
 });
