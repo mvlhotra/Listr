@@ -1,18 +1,22 @@
-.container{
-    margin-top: 15%;
+.container {
+  margin-top: 15%;
 }
 
-#links-container{
-    margin: 80px auto 0px;
-    width: 500px;
-    background-color:lightgrey;
-    display: flex;
-    flex-direction: row;
-    padding: 10px 2em 20px 2em;
-
+#links-container {
+  margin: 80px auto 0px;
+  width: 500px;
+  background-color: lightgrey;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  padding: 10px 2em 20px 2em;
 }
 
-.btn-secondary{
-    margin-right: 20px;
-
+.btn-secondary {
+  margin-right: 20px;
 }
+/*# sourceMappingURL=homepage.css.map */

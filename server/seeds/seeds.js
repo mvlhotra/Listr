@@ -3,6 +3,7 @@ exports.seed = function (knex, Promise) {
     knex('list_item').del(),
     knex('item').del(),
     knex('list').del(),
+    knex('source').del(),
     knex('category').del(),
     knex('users').del(),
 
@@ -17,6 +18,33 @@ exports.seed = function (knex, Promise) {
     knex('category').insert({ code: 'BUY', cat_desc: 'To Buy' }),
     knex('category').insert({ code: 'REA', cat_desc: 'To Sell' })
   ]).then(() => {
+    knex('source').insert({
+      id: 1,
+      cat_code: 'WAT',
+      source_name: 'Open Movie Database (OMDb)',
+      source_desc: 'The OMDb API is a RESTful web service to obtain movie information, all content and images on the site are contributed and maintained by our users.',
+      source_link: 'http://www.omdbapi.com/?t=${contentTitle}&apikey=${authentication}'
+    });
+
+    knex('source').insert({
+      id: 2,
+      cat_code: 'REA',
+      source_name: 'Open Library Search',
+      source_desc: 'Open Library provides an experimental API to search.',
+      source_link: 'http://www.omdbapi.com/?t=${contentTitle}&apikey=${authentication}'
+
+    });
+
+    knex('source').insert({
+      id: 3,
+      cat_code: 'EAT',
+      source_name: `Yelp`,
+      source_desc: `Yelp is a local-search service powered by crowd-sourced review forum`,
+      source_link: 'https://api.yelp.com/v3/businesses/search?location=toronto&categories=restaurants,all&term=${restoTitle}&sort_by=best_match'
+
+    });
+
+  }).then(() => {
     return Promise.all([
       knex('list').insert({ id: 1, user_id: 1, cat_code: 'EAT', created_at: '2018-02-27', updated_at: '2018-02-28' }),
       knex('list').insert({ id: 2, user_id: 1, cat_code: 'REA', created_at: '2018-02-27', updated_at: '2018-02-28' }),

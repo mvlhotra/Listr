@@ -16,7 +16,7 @@ app.use(cookieSession({
 
 
 app.get("/login/:id", (req, res) => {
- req.session.id = req.params.id;
+  req.session.id = req.params.id;
   res.redirect("/")
 
 });
@@ -26,8 +26,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/towatch", (req, res) => {
- 
-      res.render("list_page");
+
+  res.render("list_page");
 });
 
 app.listen(PORT, () => {
