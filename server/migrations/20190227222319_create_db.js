@@ -15,10 +15,11 @@ exports.up = function (knex, Promise) {
     knex.schema.createTable('list', table => {
       table.increments('id').primary();
       table.integer('user_id');
-      table.string('list_name');
+      table.string('cat_code');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
       table.foreign('user_id').references('id').inTable('users');
+      table.foreign('cat_code').references('code').inTable('category');
     }),
     knex.schema.createTable('source', table => {
       table.increments('id').primary();
@@ -32,6 +33,7 @@ exports.up = function (knex, Promise) {
       table.increments('id').primary();
       table.string('cat_code');
       table.string('item_name');
+      table.date('updated');
       table.foreign('cat_code').references('code').inTable('category');
 
     }),
