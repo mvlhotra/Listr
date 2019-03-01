@@ -16,7 +16,10 @@
     "body-parser": "^1.18.3",
     "cookie-session": "^2.0.0-beta.3",
     "dotenv": "^6.2.0",
+<<<<<<< HEAD
     "ejs": "^2.6.1",
+=======
+>>>>>>> feature/smartSortFunction
     "express": "^4.16.4",
     "knex": "^0.16.3",
     "knex-logger": "^0.1.0",
@@ -24,6 +27,7 @@
     "morgan": "^1.9.1",
     "node-sass-middleware": "^0.11.0",
     "nodemon": "^1.18.10",
-    "pg": "^7.8.1"
+    "pg": "^7.8.1",
+    "request": "^2.88.0"
   }
 }
