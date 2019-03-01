@@ -57,7 +57,7 @@ app.get("/login/", (req, res) => {
 
 app.get("/", (req, res) => {
 
-  res.render("home_page");
+  res.render("index");
 });
 
 app.get("/towatch", (req, res) => {
