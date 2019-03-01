@@ -11,25 +11,70 @@
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="../styles/layout.css" type="text/css" />
-  <link rel="stylesheet" href="../public/styles/homepage.css" type="text/css" />
-  <!-- bootstrap -->
+  <link rel="stylesheet" href="../styles/homepage.css" type="text/css" />
+
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!--bootstrap-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <!--bootstrap-->
+  <!--Font Awesome-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <!--Google Fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,700" rel="stylesheet">
 </head>
 
 <body>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#"><i class="fas fa-check-square"></i> Listr</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav justify-content-end">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login/Register</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
   <!-- add item to category -->
+  <section class="search">
+    <div class="container">
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Listr.</h1>
+          <p class="lead">The smarter way to-do things. Later.</p>
+        </div>
+      </div>
+    </div>
+  </section>
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h1>Hello World!</h1>
         <form action="" accept-charset="UTF-8" method="post">
           <div class="input-group">
             <input type="text" name="add" id="add" placeholder=" What to do..." class="form-control">
             <span class="input-group-btn">
-              <input type="submit" name="commit" value="Add" class="btn btn-primary" data-disable-with="Search">
+              <input type="submit" name="commit" value="Add" class="btn btn-secondary" data-disable-with="Search">
             </span>
           </div>
         </form>
@@ -37,16 +82,24 @@
     </div>
   </div>
   <!-- to eat button -->
-  <div id="links-container">
-    <div>
-      <a href="https://www.w3schools.com" class="btn btn-secondary">To Eat</a>
-      <!-- to read button -->
-      <a href="https://www.w3schools.com" class="btn btn-secondary">To read</a>
+  <div class="container">
+    <div class="row buttons">
+      <div class="col-sm-12">
+        <a href="https://www.w3schools.com" class="btn btn-lg btn-secondary">To Eat: <span>0</span></a>
+      </div>
+      <div class="col-sm-12">
+        <a href="https://www.w3schools.com" class="btn btn-lg btn-secondary">To Read: <span>0</span></a>
+      </div>
       <!-- to watch button -->
-      <a href="/towatch" class="btn btn-secondary"> To Watch</a>
-      <!-- to buy button -->
-      <a href="https://www.w3schools.com" class="btn btn-secondary">To Buy</a>
+      <div class="col-sm-12">
+        <a href="/towatch" class="btn btn-lg btn-secondary"> To Watch: <span>0</span></a>
+      </div>
+      <div class="col-sm-12">
+        <a href="https://www.w3schools.com" class="btn btn-lg btn-secondary">To Buy: <span>0</span></a>
+      </div>
     </div>
+  </div>
+  </div>
 
 
 </body>

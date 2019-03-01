@@ -110,4 +110,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+#heading {
+  color: #ff00cc;
+}
 /*# sourceMappingURL=login.css.map */
