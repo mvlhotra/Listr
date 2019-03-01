@@ -45,16 +45,16 @@ Deploy to Heroku if we get there.
 127.0.0.1:8080/:
 - login
 - register
-- :username &rightarrow Profile
-  - :username/update
-  - :username/delete
-  - :username/add
-- :username/lists
-- :username/lists/:list/
-  - :item/delete
-  - :item/add
-  - :item/update
-  - :item/
+- lists/
+  - :list/
+    - :item/delete
+    - :item/add
+    - :item/update
+    - :item/
+  - :username &rightarrow Profile
+    - :username/update
+    - :username/delete
+    - :username/add
 
 ### MVP
 - Login
