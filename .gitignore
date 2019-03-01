@@ -81,4 +81,5 @@ typings/
 
 # knex settings
 settings.json
+
 .DS_Store
