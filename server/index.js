@@ -20,6 +20,13 @@ app.get("/login/:id", (req, res) => {
   res.redirect("/")
 
 });
+
+app.get("/login/", (req, res) => {
+  req.session.id = req.params.id;
+  res.render('login');
+
+});
+
 app.get("/", (req, res) => {
 
   res.render("home_page");

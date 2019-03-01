@@ -1,8 +1,13 @@
 body {
-  background-color: #EEE;
+  background: #ffd89b;
+  /* fallback for old browsers */
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-gradient(linear, left bottom, left top, from(#19547b), to(#ffd89b));
+  background: linear-gradient(to top, #19547b, #ffd89b);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 body h1 {
-  color: #244751;
+  color: #ff00cc;
 }
 /*# sourceMappingURL=layout.css.map */
