@@ -16,10 +16,7 @@
     "body-parser": "^1.18.3",
     "cookie-session": "^2.0.0-beta.3",
     "dotenv": "^6.2.0",
-<<<<<<< HEAD
     "ejs": "^2.6.1",
-=======
->>>>>>> feature/smartSortFunction
     "express": "^4.16.4",
     "knex": "^0.16.3",
     "knex-logger": "^0.1.0",
