@@ -1,27 +1,25 @@
 //  JS function to take inputted list items from user and
 //  determine their type and return JSON object of relevant data
-
 const request = require('request');
 require('dotenv').config();
 
 //  OMDB api call
-function showFinder(title) {
-  console.log("kicked off show");
+function watchFinder(title) {
   const contentTitle = title.split(' ').join('+');
   const authentication = process.env.OMDB;
   const apiLookup = `http://www.omdbapi.com/?t=${contentTitle}&apikey=${authentication}`;
-  let showInfo = {};
+  let watchInfo = {};
   return new Promise((resolve, reject) => {
     request(apiLookup, (err, response, body) => {
       if (JSON.parse(body).Response === 'True') {
-        showInfo = {
+        watchInfo = {
           type: JSON.parse(body).Type,
           title: JSON.parse(body).Title,
           year: JSON.parse(body).Year,
           imdbRating: JSON.parse(body).imdbRating,
           response: true
         };
-        resolve(showInfo);
+        resolve(watchInfo);
       }
       reject(err);
     });
@@ -29,44 +27,29 @@ function showFinder(title) {
 }
 
 //  Open Library API call
-async function bookFinder(title) {
-  console.log("kicked off book")
+async function readFinder(title) {
   const contentTitle = title.split(' ').join('+');
   const apiLookup = `http://openlibrary.org/search.json?q=${contentTitle}`;
-  let bookInfo = {};
+  let readInfo = {};
   return new Promise((resolve, reject) => {
     request(apiLookup, (err, response, body) => {
       if (JSON.parse(body).num_found !== 0 && title.toLowerCase() === JSON.parse(body).docs[0].title.toLowerCase()) {
-        bookInfo = {
+        readInfo = {
           type: 'book',
           title: JSON.parse(body).docs[0].title,
           author: JSON.parse(body).docs[0].author_name[0],
           year: JSON.parse(body).docs[0].first_publish_year,
           response: true
         };
-        resolve(bookInfo);
+        resolve(readInfo);
       }
       reject(err);
     });
   });
-
-  // await request(apiLookup, (err, response, body) => {
-  //   if (title.toLowerCase() === JSON.parse(body).docs[0].title.toLowerCase()) {
-  //     bookInfo = {
-  //       type: 'book',
-  //       title: JSON.parse(body).docs[0].title,
-  //       author: JSON.parse(body).docs[0].author_name[0],
-  //       year: JSON.parse(body).docs[0].first_publish_year,
-  //       response: true
-  //     };
-  //     return bookInfo;
-  //   }
-  // });
 }
 
 //  Yelp API call
-async function restoFinder(title, callback) {
-  console.log("kicked off resto")
+async function eatFinder(title) {
   const restoTitle = title.split(' ').join('-').toLowerCase();
   const apiLookup = {
     url: `https://api.yelp.com/v3/businesses/search?location=toronto&categories=restaurants,all&term=${restoTitle}&sort_by=best_match`,
@@ -74,11 +57,11 @@ async function restoFinder(title, callback) {
       Authorization: `Bearer ${process.env.YELPAPI}`
     }
   };
-  let restoInfo = {};
+  let eatInfo = {};
   return new Promise((resolve, reject) => {
     request(apiLookup, (err, response, body) => {
       if (JSON.parse(body).total !== 0 && title === JSON.parse(body).businesses[0].name.slice(0, title.length)) {
-        restoInfo = {
+        eatInfo = {
           type: 'toEat',
           name: JSON.parse(body).businesses[0].name,
           yelpRating: JSON.parse(body).businesses[0].rating,
@@ -86,7 +69,7 @@ async function restoFinder(title, callback) {
           address: JSON.parse(body).businesses[0].location.display_address.join(' '),
           response: true
         };
-        resolve(restoInfo);
+        resolve(eatInfo);
       }
       reject(err);
     });
@@ -113,29 +96,22 @@ async function restoFinder(title, callback) {
 async function searchAll(userInput, callback) {
   const searchHits = [];
 
-  let showResult = await showFinder(userInput).then().catch(err => console.log(err));
-  let bookResult = await bookFinder(userInput).then().catch(err => console.log(err));
-  let restoResult = await restoFinder(userInput).then().catch(err => console.log(err));
-  if (showResult) {
-    searchHits.push(showResult);
+  const watchResult = await watchFinder(userInput).then().catch(err => console.log(err));
+  const readResult = await readFinder(userInput).then().catch(err => console.log(err));
+  const eatResult = await eatFinder(userInput).then().catch(err => console.log(err));
+  if (watchResult) {
+    searchHits.push(watchResult);
   }
-  if (bookResult) {
-    searchHits.push(bookResult);
+  if (readResult) {
+    searchHits.push(readResult);
   }
-  if (restoResult) {
-    searchHits.push(restoResult);
+  if (eatResult) {
+    searchHits.push(eatResult);
   }
   console.log(searchHits);
-  //callback(searchHits);
 }
 
 searchAll('To Kill a Mockingbird');
-//   , (obj) => {
-//   console.log(obj);
-// });
-// showFinder('Big Mouth', (obj) => {
-//   console.log(obj);
-// });
 
 // //  Google Books api call
 // function bookFinder(title, callback) {
