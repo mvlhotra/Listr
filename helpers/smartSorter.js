@@ -12,6 +12,7 @@ function watchFinder(title) {
   return new Promise((resolve, reject) => {
     request(apiLookup, (err, response, body) => {
       if (JSON.parse(body).Response === 'True') {
+        // console.log(JSON.parse(body));
         watchInfo = {
           type: 'WAT',
           title: JSON.parse(body).Title,
@@ -111,7 +112,7 @@ async function searchAll(userInput, callback) {
   console.log(searchHits);
 }
 
-searchAll('To Kill a Mockingbird');
+searchAll('Big Mouth');
 
 // //  Google Books api call
 // function bookFinder(title, callback) {

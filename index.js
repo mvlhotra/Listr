@@ -91,8 +91,8 @@ app.get('/lists/:list', (req, res) => {
 });
 
 // Force a login without authentication... Yes we know, bad bad
-app.post('/login/:email', (req, res) => {
-  User.findByEmail(req.body.email)
+app.get('/login/:email', (req, res) => {
+  User.findByEmail(req.params.email)
     .then((user) => {
       req.session.id = user[0].id;
       res.redirect('/lists');
