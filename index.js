@@ -150,7 +150,7 @@ app.get('/profile', (req, res) => {
 
 // View page for editing user profile
 app.get('/profile/edit', (req, res) => {
-  const ejsTemplate = { cookie: req.session };
+  const ejsTemplate = { cookie: req.session.user_id };
   if (!req.session.user_id) {
     res.redirect('/login');
   } else {
