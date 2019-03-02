@@ -52,7 +52,7 @@ app.use('/api/users', usersRoutes(knex));
 // User main lists page
 app.get('/lists', (req, res) => {
   if (req.session) {
-    let ejsTemplate;
+    let ejsTemplate= {hello:"hello"}
     User.findByID(req.session.user_id)
       .then((user) => {
         ejsTemplate = user[0];
@@ -63,7 +63,7 @@ app.get('/lists', (req, res) => {
         catCounts.forEach((cat) => {
           ejsTemplate[cat.cat_code] = cat.count;
         });
-        res.render('index', ejsTemplate);
+        res.render('index', {ejsTemplate:ejsTemplate});
       });
   } else {
     res.redirect('/login');
@@ -85,7 +85,7 @@ app.get('/lists/:list', (req, res) => {
         list.forEach((item) => {
           ejsTemplate.item.push(item);
         });
-        res.render('list_page', ejsTemplate);
+        res.render('list_page',{ejsTemplate:ejsTemplate});
       });
   } else {
     res.redirect('/login');
@@ -102,7 +102,7 @@ app.get('/lists/:list', (req, res) => {
 // });
 
 app.get('/login/:id', (req, res) => {
-  req.session.user_id = req.params.id;
+req.session.user_id = req.params.id;
   res.redirect('/lists');
 });
 
@@ -112,7 +112,7 @@ app.get('/login', (req, res) => {
   if (req.session.user_id) {
     res.redirect('/lists');
   } else {
-    res.render('login', ejsTemplate);
+    res.render('login', {ejsTemplate:ejsTemplate});
   }
 });
 
@@ -122,7 +122,7 @@ app.get('/register', (req, res) => {
   if (req.session.user_id) {
     res.redirect('/lists');
   } else {
-    res.render('register', ejsTemplate);
+    res.render('register', {ejsTemplate:ejsTemplate});
   }
 });
 
@@ -132,7 +132,7 @@ app.get('/profile', (req, res) => {
   if (!req.session.user_id) {
     res.redirect('/login');
   } else {
-    res.render('profile', ejsTemplate);
+    res.render('profile', {ejsTemplate:ejsTemplate});
   }
 });
 
