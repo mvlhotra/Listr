@@ -1,6 +1,7 @@
 //  Functions to query data out psql
 
 module.exports = (knex) => {
+  // Return a count of each list for a user
   function countList(userID) {
     return new Promise((resolve, reject) => {
       knex('list_item').select('users.id', 'list_item.list_id', 'list.cat_code').count('list_item.item_id')
@@ -16,6 +17,7 @@ module.exports = (knex) => {
     });
   }
 
+  // Look up a user id by their email
   function findUserByEmail(email) {
     return new Promise((resolve, reject) => {
       knex('users')
@@ -29,6 +31,7 @@ module.exports = (knex) => {
     });
   }
 
+  // Look up user info by id
   function findUserByID(id) {
     return new Promise((resolve, reject) => {
       knex('users')
@@ -42,6 +45,7 @@ module.exports = (knex) => {
     });
   }
 
+  // Return full item list by user and category
   function makeListByCategory(userID, category) {
     return new Promise((resolve, reject) => {
       knex('users').select('item.id', 'item.item_name')
@@ -57,33 +61,56 @@ module.exports = (knex) => {
     });
   }
 
+  // Get list id by user and category
   function getListID(userID, cat) {
     return new Promise((resolve, reject) => {
-      knex('list').select(list.id)
-        .where({ 'list.user_id': data.userID })
-        .where({ 'list.cat_code': data.cat })
+      knex('list').select('list.id')
+        .where({ 'list.user_id': userID })
+        .where({ 'list.cat_code': cat })
         .then((list) => {
-          return resolve(list_id);
+          return resolve(list);
         })
         .catch((error) => reject(error));
     });
   }
 
+  // Get item PK for newest item added
   function getItemID() {
     return new Promise((resolve, reject) => {
-      knex('item').select(max(item.id))
+      knex('item').max('item.id')
         .then((item) => {
-          return resolve(item_id);
+          return resolve(item);
         })
         .catch((error) => reject(error));
     });
   }
-  // HASNT BEEN TESTED
-  async function insertItem(data) {
-    knex('item').insert({ cat_code: data.cat, item_name: data.title });
-    const listID = await getListID(data.userID, data.cat);
+
+  // Insert a new item in list by user and category
+  async function insertNewItem(userID, itemName, category) {
+    console.log(userID, itemName, category);
+    knex('item').insert({ 'cat_code': category, 'item_name': itemName })
+      .then(console.log('item should be in there'));
+    const listID = await getListID(userID, category);
     const itemID = await getItemID();
-    knex('list_item').insert({ list_id: listID[0], item_id: itemID[0] });
+    console.log('listid: ', listID[0].id, '\nitemid: ', itemID[0].max);
+    knex('list_item').insert({ 'list_id': listID[0].id, 'item_id': itemID[0].max })
+      .then(console.log('list_item-erino'));
+  }
+
+  // Update user table field
+  function updateUserInfo(userID, input, field) {
+    if (field !== 'id') {
+      knex('user')
+        .where({ id: userID })
+        .update({ [field]: input });
+    }
+  }
+
+  // Update item category
+  function updateItemCategory(itemID, newCat) {
+    knex('item')
+      .where({ id: itemID })
+      .update('cat_code', newCat);
   }
 
   return {
@@ -91,13 +118,8 @@ module.exports = (knex) => {
     findByEmail: findUserByEmail,
     findByID: findUserByID,
     makeList: makeListByCategory,
-    insert: insertItem
+    insertItem: insertNewItem,
+    updateUser: updateUserInfo,
+    updateItem: updateItemCategory
   };
 };
-
-/* data = {
-  cat: 'WAT',
-  title: 'Batman',
-  userID: 2
-  }
-*/
