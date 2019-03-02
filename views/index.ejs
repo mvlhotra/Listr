@@ -4,12 +4,13 @@
 <head>
   <% include ./partials/_header %>
   <link rel="stylesheet" href="../styles/homepage.css" type="text/css" />
+
 </head>
 
 <body>
   <header>
-    <% include ./partials/_nav %> 
-    
+    <% include ./partials/_nav %>
+
   </header>
   <!-- add item to category -->
   <section class="search">
@@ -34,6 +35,8 @@
   <div class="container">
     <div class="row buttons">
       <div class="col-sm-12">
+        <a data-fancybox data-type="ajax" data-src="/multiple" href="javascript:;" class="btn btn-primary">Open demo</a>
+        </p>
         <a href="/lists/EAT" class="btn btn-lg btn-secondary">To Eat: <span> <%= ejsTemplate['EAT'] %> </span></a>
       </div>
       <div class="col-sm-12">

@@ -1,3 +1,4 @@
+<script src="/scripts/nav.js"></script>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top">
   <a class="navbar-brand" href="/lists"><i class="fas fa-check-square"></i> Listr</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
@@ -19,7 +20,10 @@
         <a class="nav-link" href="/register">Register</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/logout">Logout</a>
+        <form><button type="submit" formmethod="POST" formaction="/logout" class="btn logout">Logout</button></form>
+      </li>
+      <li class="nav-item">
+        Welcome, <%=ejsTemplate['first_name']%> <%=ejsTemplate['last_name']%>
       </li>
     </ul>
   </div>
