@@ -49,8 +49,7 @@ app.get("/login/:id", (req, res) => {
 
 });
 
-app.get("/login/", (req, res) => {
-  req.session.id = req.params.id;
+app.get("/login", (req, res) => {
   res.render('login');
 
 });
