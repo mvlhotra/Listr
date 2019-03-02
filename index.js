@@ -47,7 +47,11 @@ app.use(cookieSession({
 }));
 
 // Mount all resource routes
-app.use('/api/users', usersRoutes(knex));
+app.use('/api/items', usersRoutes(knex));
+
+app.get("/", (req, res) => {
+  res.redirect('/lists');
+});
 
 // User main lists page
 app.get('/lists', (req, res) => {
@@ -173,7 +177,11 @@ app.post('/profile/:field', (req, res) => {
 // User login page
 app.post('/logout', (req, res) => {
   req.session = null;
-  res.render('login');
+  res.redirect('/login');
+});
+
+app.get('/multiple', (req, res) => {
+  res.render('multiple');
 });
 
 app.listen(PORT, () => {

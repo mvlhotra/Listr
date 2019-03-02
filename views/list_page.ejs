@@ -8,6 +8,7 @@
     <% include ./partials/_nav %>
   </header>
   <%=JSON.stringify(ejsTemplate)%>
+  <%let text = '';%>
   <div class="container">
     <div class="row">
       <div class="col-sm-6">
@@ -21,9 +22,10 @@
             </div>
           </form>
           <ul class="list-group">
-              <% for (var item of ejsTemplate.item){%> 
-                <li class="list-group-item"><i class="fas fa-check"> </i><%= item.item_name%> <i class="fas fa-times"></i></li>
-                <%}%>
+            <% for (var item of ejsTemplate.item){%>
+            <li class="list-group-item"><i class="fas fa-check"> </i><%= item.item_name%> <i class="fas fa-times"></i>
+            </li>
+            <%}%>
           </ul>
         </div>
       </div>

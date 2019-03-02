@@ -1,5 +1,7 @@
 $(document).ready(function () {
-
+  $('.logout').click(() => {
+    console.log('yeye');
+  });
 
 });
 
