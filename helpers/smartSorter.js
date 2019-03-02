@@ -13,7 +13,7 @@ function watchFinder(title) {
     request(apiLookup, (err, response, body) => {
       if (JSON.parse(body).Response === 'True') {
         watchInfo = {
-          type: JSON.parse(body).Type,
+          type: 'WAT',
           title: JSON.parse(body).Title,
           year: JSON.parse(body).Year,
           imdbRating: JSON.parse(body).imdbRating,
@@ -27,7 +27,7 @@ function watchFinder(title) {
 }
 
 //  Open Library API call
-async function readFinder(title) {
+function readFinder(title) {
   const contentTitle = title.split(' ').join('+');
   const apiLookup = `http://openlibrary.org/search.json?q=${contentTitle}`;
   let readInfo = {};
@@ -35,7 +35,7 @@ async function readFinder(title) {
     request(apiLookup, (err, response, body) => {
       if (JSON.parse(body).num_found !== 0 && title.toLowerCase() === JSON.parse(body).docs[0].title.toLowerCase()) {
         readInfo = {
-          type: 'book',
+          type: 'REA',
           title: JSON.parse(body).docs[0].title,
           author: JSON.parse(body).docs[0].author_name[0],
           year: JSON.parse(body).docs[0].first_publish_year,
@@ -49,7 +49,7 @@ async function readFinder(title) {
 }
 
 //  Yelp API call
-async function eatFinder(title) {
+function eatFinder(title) {
   const restoTitle = title.split(' ').join('-').toLowerCase();
   const apiLookup = {
     url: `https://api.yelp.com/v3/businesses/search?location=toronto&categories=restaurants,all&term=${restoTitle}&sort_by=best_match`,
@@ -62,7 +62,7 @@ async function eatFinder(title) {
     request(apiLookup, (err, response, body) => {
       if (JSON.parse(body).total !== 0 && title === JSON.parse(body).businesses[0].name.slice(0, title.length)) {
         eatInfo = {
-          type: 'toEat',
+          type: 'EAT',
           name: JSON.parse(body).businesses[0].name,
           yelpRating: JSON.parse(body).businesses[0].rating,
           price: JSON.parse(body).businesses[0].price,
