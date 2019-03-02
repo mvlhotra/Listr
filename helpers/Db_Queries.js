@@ -42,12 +42,27 @@ module.exports = (knex) => {
     });
   }
 
+  function makeListByCategory(userID, category) {
+    return new Promise((resolve, reject) => {
+      knex('users').select('item.item_name')
+        .join('list', 'list.user_id', '=', 'users.id')
+        .join('list_item', 'list_item.list_id', '=', 'list.id')
+        .join('item', 'item.id', '=', 'list_item.item_id')
+        .where({ 'users.id': userID })
+        .where({ 'item.cat_code': category })
+        .then((list) => {
+          return resolve(list);
+        })
+        .catch((error) => reject(error));
+    });
+  }
+
   function getListID(userID, cat) {
     return new Promise((resolve, reject) => {
       knex('list').select(list.id)
         .where({ 'list.user_id': data.userID })
         .where({ 'list.cat_code': data.cat })
-        .then ((list) => {
+        .then((list) => {
           return resolve(list_id);
         })
         .catch((error) => reject(error));
@@ -75,6 +90,7 @@ module.exports = (knex) => {
     count: countList,
     findByEmail: findUserByEmail,
     findByID: findUserByID,
+    makeList: makeListByCategory,
     insert: insertItem
   };
 };

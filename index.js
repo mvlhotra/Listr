@@ -67,6 +67,26 @@ app.get('/lists', (req, res) => {
   res.redirect('/login');
 });
 
+// User individual list page
+app.get('/lists/:list', (req, res) => {
+  if (req.session.id) {
+    let ejsTemplate;
+    User.findByID(req.session.id)
+      .then((user) => {
+        ejsTemplate = user[0];
+      });
+    User.makeList(req.session.id, req.params.list)
+      .then((list) => {
+        ejsTemplate.itemName = [];
+        list.forEach((item) => {
+          ejsTemplate.itemName.push(item.item_name);
+        });
+        res.render('list_page', ejsTemplate);
+      });
+  }
+  res.redirect('/login');
+});
+
 // Force a login without authentication... Yes we know, bad bad
 app.get('/login/:email', (req, res) => {
   User.findByEmail(req.params.email)
