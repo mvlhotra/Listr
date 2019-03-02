@@ -44,7 +44,7 @@ module.exports = (knex) => {
 
   function makeListByCategory(userID, category) {
     return new Promise((resolve, reject) => {
-      knex('users').select('item.item_name')
+      knex('users').select('item.id', 'item.item_name')
         .join('list', 'list.user_id', '=', 'users.id')
         .join('list_item', 'list_item.list_id', '=', 'list.id')
         .join('item', 'item.id', '=', 'list_item.item_id')
