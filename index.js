@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 require('dotenv').config();
 
@@ -24,7 +24,8 @@ const User = require('./helpers/Db_Queries.js')(knex);
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
-// The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
+// The :status token will be colored red for server error codes, yellow for client error codes,
+// cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
@@ -50,43 +51,95 @@ app.use('/api/users', usersRoutes(knex));
 
 // User main lists page
 app.get('/lists', (req, res) => {
-  if (req.session.id) {
+  if (req.session) {
     let ejsTemplate;
-    User.findByID(req.session.id)
+    User.findByID(req.session.user_id)
       .then((user) => {
         ejsTemplate = user[0];
+        ejsTemplate.cookie = req.session;
       });
-    User.count(req.session.id)
+    User.count(req.session.user_id)
       .then((catCounts) => {
         catCounts.forEach((cat) => {
           ejsTemplate[cat.cat_code] = cat.count;
         });
         res.render('index', ejsTemplate);
       });
+  } else {
+    res.redirect('/login');
   }
-  res.redirect('/login');
+});
+
+// User individual list page
+app.get('/lists/:list', (req, res) => {
+  if (req.session.user_id) {
+    let ejsTemplate;
+    User.findByID(req.session.user_id)
+      .then((user) => {
+        ejsTemplate = user[0];
+        ejsTemplate.cookie = req.session;
+      });
+    User.makeList(req.session.user_id, req.params.list)
+      .then((list) => {
+        ejsTemplate.item = [];
+        list.forEach((item) => {
+          ejsTemplate.item.push(item);
+        });
+        res.render('list_page', ejsTemplate);
+      });
+  } else {
+    res.redirect('/login');
+  }
 });
 
 // Force a login without authentication... Yes we know, bad bad
-app.get('/login/:email', (req, res) => {
-  User.findByEmail(req.params.email)
-    .then((user) => {
-      req.session.id = user[0].id;
-    });
+// app.get('/login/:email', (req, res) => {
+//   User.findByEmail(req.params.email)
+//     .then((user) => {
+//       req.session.user_id = user[0].id;
+//       res.redirect('/lists');
+//     });
+// });
+
+app.get('/login/:id', (req, res) => {
+  req.session.user_id = req.params.id;
   res.redirect('/lists');
 });
 
 // User login page
 app.get('/login', (req, res) => {
-  if (req.session.id) {
+  const ejsTemplate = { cookie: req.session };
+  if (req.session.user_id) {
     res.redirect('/lists');
+  } else {
+    res.render('login', ejsTemplate);
   }
-  res.render('login');
 });
 
-app.get('/towatch', (req, res) => {
+// Register new user
+app.get('/register', (req, res) => {
+  const ejsTemplate = { cookie: req.session };
+  if (req.session.user_id) {
+    res.redirect('/lists');
+  } else {
+    res.render('register', ejsTemplate);
+  }
+});
 
-  res.render('list_page');
+// Access user profile
+app.get('/profile', (req, res) => {
+  const ejsTemplate = { cookie: req.session };
+  if (!req.session.user_id) {
+    res.redirect('/login');
+  } else {
+    res.render('profile', ejsTemplate);
+  }
+});
+
+// User login page
+app.post('/logout', (req, res) => {
+  req.session = null;
+  res.render('login');
 });
 
 app.listen(PORT, () => {

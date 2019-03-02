@@ -1,0 +1,40 @@
+.container{
+  margin-top: 200px;
+  background-color:rgba(0,0,0,0.2);
+  padding: 2.5%;
+}
+
+.list-container{
+
+  .input-group{
+    #add{
+      background-color:rgba(0,0,0,0.2);
+      color:#fff;
+    }
+    ::placeholder{
+      color:#fff;
+    }
+  }
+  .list-group{
+    .list-group-item{
+      display:flex;
+      justify-content:space-between;
+      background-color:rgba(0,0,0,0.2);
+    }
+  }
+}
+
+
+
+
+.col{
+    margin: 20px;
+}
+
+.list-container{
+    margin-top:20px;
+}
+.list-container header {
+    border-bottom: black solid 2px;
+    background: lightgrey;
+}

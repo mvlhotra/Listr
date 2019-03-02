@@ -2,51 +2,51 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Listr - Smart To-Do List</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- css -->
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-  <link rel="stylesheet" href="../styles/layout.css" type="text/css" />
-  <link rel="stylesheet" href="../public/styles/homepage.css" type="text/css" />
-  <!-- bootstrap -->
-  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <% include ./partials/_header %>
+  <link rel="stylesheet" href="../styles/homepage.css" type="text/css" />
 </head>
 
 <body>
+  <header>
+    <% include ./partials/_nav %>
+  </header>
   <!-- add item to category -->
+  <section class="search">
+    <div class="container">
+      <h1 class="display-4">Listr.</h1>
+      <p class="lead">The smarter way to-do things. Later.</p>
+  </section>
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h1>Hello World!</h1>
         <form action="" accept-charset="UTF-8" method="post">
           <div class="input-group">
             <input type="text" name="add" id="add" placeholder=" What to do..." class="form-control">
             <span class="input-group-btn">
-              <input type="submit" name="commit" value="Add" class="btn btn-primary" data-disable-with="Search">
+              <input type="submit" name="commit" value="Add" class="btn btn-secondary" data-disable-with="Search">
             </span>
           </div>
         </form>
       </div>
     </div>
   </div>
-  <!-- to eat button -->
-  <div id="links-container">
-    <div>
-      <a href="https://www.w3schools.com" class="btn btn-secondary">To Eat</a>
-      <!-- to read button -->
-      <a href="https://www.w3schools.com" class="btn btn-secondary">To read</a>
-      <!-- to watch button -->
-      <a href="/towatch" class="btn btn-secondary"> To Watch</a>
-      <!-- to buy button -->
-      <a href="https://www.w3schools.com" class="btn btn-secondary">To Buy</a>
+  <div class="container">
+    <div class="row buttons">
+      <div class="col-sm-12">
+        <a href="https://www.w3schools.com" class="btn btn-lg btn-secondary">To Eat: <span>0</span></a>
+      </div>
+      <div class="col-sm-12">
+        <a href="https://www.w3schools.com" class="btn btn-lg btn-secondary">To Read: <span>0</span></a>
+      </div>
+      <div class="col-sm-12">
+        <a href="/towatch" class="btn btn-lg btn-secondary"> To Watch: <span>0</span></a>
+      </div>
+      <div class="col-sm-12">
+        <a href="https://www.w3schools.com" class="btn btn-lg btn-secondary">To Buy: <span>0</span></a>
+      </div>
     </div>
+  </div>
+  </div>
 
 
 </body>

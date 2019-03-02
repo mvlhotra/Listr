@@ -9,13 +9,29 @@
   color: #fff;
 }
 
+.list-container .input-group ::-webkit-input-placeholder {
+  color: #fff;
+}
+
+.list-container .input-group :-ms-input-placeholder {
+  color: #fff;
+}
+
+.list-container .input-group ::-ms-input-placeholder {
+  color: #fff;
+}
+
 .list-container .input-group ::placeholder {
   color: #fff;
 }
 
 .list-container .list-group .list-group-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   background-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -31,3 +47,4 @@
   border-bottom: black solid 2px;
   background: lightgrey;
 }
+/*# sourceMappingURL=listpage.css.map */
