@@ -63,7 +63,7 @@ app.get('/lists', (req, res) => {
         catCounts.forEach((cat) => {
           ejsTemplate[cat.cat_code] = cat.count;
         });
-        res.render('index', ejsTemplate);
+        res.render('index', {ejsTemplate:ejsTemplate});
       });
   } else {
     res.redirect('/login');
@@ -85,7 +85,7 @@ app.get('/lists/:list', (req, res) => {
         list.forEach((item) => {
           ejsTemplate.item.push(item);
         });
-        res.render('list_page', ejsTemplate);
+        res.render('list_page', {ejsTemplate:ejsTemplate});
       });
   } else {
     res.redirect('/login');
@@ -112,7 +112,7 @@ app.get('/login', (req, res) => {
   if (req.session.user_id) {
     res.redirect('/lists');
   } else {
-    res.render('login', ejsTemplate);
+    res.render('login', {ejsTemplate:ejsTemplate});
   }
 });
 
@@ -122,7 +122,7 @@ app.get('/register', (req, res) => {
   if (req.session.user_id) {
     res.redirect('/lists');
   } else {
-    res.render('register', ejsTemplate);
+    res.render('register', {ejsTemplate:ejsTemplate});
   }
 });
 
@@ -132,7 +132,7 @@ app.get('/profile', (req, res) => {
   if (!req.session.user_id) {
     res.redirect('/login');
   } else {
-    res.render('profile', ejsTemplate);
+    res.render('profile', {ejsTemplate:ejsTemplate});
   }
 });
 
@@ -140,6 +140,28 @@ app.get('/profile', (req, res) => {
 app.post('/lists/:list', (req, res) => {
   if (req.session.user_id) {
     User.insert(req.session.user_id, req.body.itemName, req.params.list)
+      .then(() => {
+        res.status(201).send();
+      });
+  } else {
+    console.log('Must be a user');
+  }
+});
+
+app.post('/lists/:list/:item', (req, res) => {
+  if (req.session.user_id) {
+    User.updateItem(req.params.item, req.body.newCat)
+      .then(() => {
+        res.status(201).send();
+      });
+  } else {
+    console.log('Must be a user');
+  }
+});
+
+app.post('/profile/:field', (req, res) => {
+  if (req.session.user_id) {
+    User.updateUser(req.session.user_id, req.body.input, req.params.field)
       .then(() => {
         res.status(201).send();
       });
@@ -157,3 +179,12 @@ app.post('/logout', (req, res) => {
 app.listen(PORT, () => {
   console.log('listening on ', PORT);
 });
+
+// User.updateItem(2, 'REA');
+
+// User.updateUser(1, 'butts', 'last_name');
+
+// User.insertItem(1, 'Insomnia', 'REA')
+//   .then(() => {
+//     console.log('did done it?');
+//   });
