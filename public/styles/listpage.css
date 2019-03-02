@@ -1,26 +1,33 @@
+.container {
+  margin-top: 200px;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 2.5%;
+}
+
+.list-container .input-group #add {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+.list-container .input-group ::placeholder {
+  color: #fff;
+}
+
+.list-container .list-group .list-group-item {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
 .col {
-  border: black solid 2px;
   margin: 20px;
 }
 
-.row {
-  border: green solid 2px;
-  padding: 20px;
-}
-
 .list-container {
-  border: pink solid 2px;
+  margin-top: 20px;
 }
 
 .list-container header {
   border-bottom: black solid 2px;
   background: lightgrey;
-}
-
-.body {
-  border: black dotted 2px;
-}
-
-.body h1 {
-  color: #ff00cc;
 }

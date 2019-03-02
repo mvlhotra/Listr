@@ -1,11 +1,5 @@
 .container {
-  margin: 30px;
-}
-
-.container .jumbotron {
   text-align: center;
-  background-color: rgba(0, 0, 0, 0);
-  color: white;
 }
 
 .container .buttons {
