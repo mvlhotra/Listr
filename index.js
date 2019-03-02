@@ -51,8 +51,8 @@ app.use('/api/users', usersRoutes(knex));
 
 // View User main lists page
 app.get('/lists', (req, res) => {
-  if (req.session) {
-    let ejsTemplate = { hello: "hello" }
+  let ejsTemplate;
+  if (req.session.user_id) {
     User.findByID(req.session.user_id)
       .then((user) => {
         ejsTemplate = user[0];
@@ -72,8 +72,8 @@ app.get('/lists', (req, res) => {
 
 // View user individual list page
 app.get('/lists/:list', (req, res) => {
+  let ejsTemplate;
   if (req.session.user_id) {
-    let ejsTemplate;
     User.findByID(req.session.user_id)
       .then((user) => {
         ejsTemplate = user[0];
@@ -129,11 +129,16 @@ app.get('/register', (req, res) => {
 
 // View user profile
 app.get('/profile', (req, res) => {
-  const ejsTemplate = { cookie: req.session };
+  let ejsTemplate;
   if (!req.session.user_id) {
     res.redirect('/login');
   } else {
-    res.render('profile', { ejsTemplate: ejsTemplate });
+    User.findByID(req.session.user_id)
+      .then((user) => {
+        ejsTemplate = user[0];
+        ejsTemplate.cookie = req.session;
+        res.render('profile', { ejsTemplate: ejsTemplate });
+      });
   }
 });
 
