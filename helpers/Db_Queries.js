@@ -74,24 +74,13 @@ module.exports = (knex) => {
     });
   }
 
-  // Get item PK for newest item added
-  function getItemID() {
-    return new Promise((resolve, reject) => {
-      knex('item').max('item.id')
-        .then((item) => {
-          return resolve(item);
-        })
-        .catch(err => reject(err));
-    });
-  }
-
   // Insert a new item in list by user and category
   async function insertNewItem(userID, itemName, category) {
     const listID = await getListID(userID, category);
     knex('item').insert({ cat_code: category, item_name: itemName })
       .returning('id')
       .then((id) => {
-        knex('list_item').insert({ list_id: listID[0].id, item_id: id })
+        knex('list_item').insert({ list_id: listID[0].id, item_id: id[0] })
           .catch(err => console.log(err));
       });
   }
@@ -121,6 +110,7 @@ module.exports = (knex) => {
       .catch(err => console.log(err));
   }
 
+  // Add new user to Db
   function registerNewUser(firstName, lastName, userEmail, userPassword) {
     knex('users')
       .insert({
