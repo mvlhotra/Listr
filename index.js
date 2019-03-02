@@ -85,11 +85,7 @@ app.get('/lists/:list', (req, res) => {
         list.forEach((item) => {
           ejsTemplate.item.push(item);
         });
-<<<<<<< HEAD
-        res.render('list_page',{ejsTemplate:ejsTemplate});
-=======
         res.render('list_page', {ejsTemplate:ejsTemplate});
->>>>>>> master
       });
   } else {
     res.redirect('/login');
@@ -137,8 +133,6 @@ app.get('/profile', (req, res) => {
     res.redirect('/login');
   } else {
     res.render('profile', {ejsTemplate:ejsTemplate});
-<<<<<<< HEAD
-=======
   }
 });
 
@@ -173,7 +167,6 @@ app.post('/profile/:field', (req, res) => {
       });
   } else {
     console.log('Must be a user');
->>>>>>> master
   }
 });
 
