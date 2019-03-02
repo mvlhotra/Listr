@@ -18,6 +18,16 @@ body,html{
   font-family: 'Space Mono', monospace;
   color:#fff;
 
+}
 
+.btn .logout{
+  color:white;
+}
 
+.modal-container {
+  max-width: 500px;
+  padding: 0;
+  margin: 20px 0;
+  border-radius: .3em;
+  box-shadow: 0 0.1em 0.4em rgba(0,0,0,.3);
 }
