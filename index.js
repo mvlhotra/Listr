@@ -85,7 +85,11 @@ app.get('/lists/:list', (req, res) => {
         list.forEach((item) => {
           ejsTemplate.item.push(item);
         });
+<<<<<<< HEAD
         res.render('list_page',{ejsTemplate:ejsTemplate});
+=======
+        res.render('list_page', {ejsTemplate:ejsTemplate});
+>>>>>>> master
       });
   } else {
     res.redirect('/login');
@@ -133,6 +137,43 @@ app.get('/profile', (req, res) => {
     res.redirect('/login');
   } else {
     res.render('profile', {ejsTemplate:ejsTemplate});
+<<<<<<< HEAD
+=======
+  }
+});
+
+// Add new item to a list
+app.post('/lists/:list', (req, res) => {
+  if (req.session.user_id) {
+    User.insert(req.session.user_id, req.body.itemName, req.params.list)
+      .then(() => {
+        res.status(201).send();
+      });
+  } else {
+    console.log('Must be a user');
+  }
+});
+
+app.post('/lists/:list/:item', (req, res) => {
+  if (req.session.user_id) {
+    User.updateItem(req.params.item, req.body.newCat)
+      .then(() => {
+        res.status(201).send();
+      });
+  } else {
+    console.log('Must be a user');
+  }
+});
+
+app.post('/profile/:field', (req, res) => {
+  if (req.session.user_id) {
+    User.updateUser(req.session.user_id, req.body.input, req.params.field)
+      .then(() => {
+        res.status(201).send();
+      });
+  } else {
+    console.log('Must be a user');
+>>>>>>> master
   }
 });
 
@@ -145,3 +186,12 @@ app.post('/logout', (req, res) => {
 app.listen(PORT, () => {
   console.log('listening on ', PORT);
 });
+
+// User.updateItem(2, 'REA');
+
+// User.updateUser(1, 'butts', 'last_name');
+
+// User.insertItem(1, 'Insomnia', 'REA')
+//   .then(() => {
+//     console.log('did done it?');
+//   });
