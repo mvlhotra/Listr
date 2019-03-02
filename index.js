@@ -49,7 +49,7 @@ app.use(cookieSession({
 // Mount all resource routes
 app.use('/api/users', usersRoutes(knex));
 
-// User main lists page
+// View User main lists page
 app.get('/lists', (req, res) => {
   if (req.session) {
     let ejsTemplate = { hello: "hello" }
@@ -70,7 +70,7 @@ app.get('/lists', (req, res) => {
   }
 });
 
-// User individual list page
+// View user individual list page
 app.get('/lists/:list', (req, res) => {
   if (req.session.user_id) {
     let ejsTemplate;
@@ -101,12 +101,13 @@ app.get('/lists/:list', (req, res) => {
 //     });
 // });
 
+// Force a login
 app.get('/login/:id', (req, res) => {
   req.session.user_id = req.params.id;
   res.redirect('/lists');
 });
 
-// User login page
+// View user login page
 app.get('/login', (req, res) => {
   const ejsTemplate = { cookie: req.session };
   if (req.session.user_id) {
@@ -116,7 +117,7 @@ app.get('/login', (req, res) => {
   }
 });
 
-// Register new user
+// View register new user page
 app.get('/register', (req, res) => {
   const ejsTemplate = { cookie: req.session };
   if (req.session.user_id) {
@@ -126,7 +127,7 @@ app.get('/register', (req, res) => {
   }
 });
 
-// Access user profile
+// View user profile
 app.get('/profile', (req, res) => {
   const ejsTemplate = { cookie: req.session };
   if (!req.session.user_id) {
@@ -135,6 +136,17 @@ app.get('/profile', (req, res) => {
     res.render('profile', { ejsTemplate: ejsTemplate });
   }
 });
+
+// View page for editing user profile
+app.get('/profile/edit', (req, res) => {
+  const ejsTemplate = { cookie: req.session };
+  if (!req.session.user_id) {
+    res.redirect('/login');
+  } else {
+    res.render('profile_edit', {ejsTemplate:ejsTemplate});
+  }
+});
+
 
 // Add new item to a list
 app.post('/lists/:list', (req, res) => {
@@ -148,9 +160,10 @@ app.post('/lists/:list', (req, res) => {
   }
 });
 
+// Change list item category
 app.post('/lists/:list/:item', (req, res) => {
   if (req.session.user_id) {
-    User.updateItem(req.params.item, req.body.newCat)
+    User.updateItem(req.session.user_id, req.params.item, req.params.list.toUpperCase(), req.body.newCat.toUpperCase())
       .then(() => {
         res.status(201).send();
       });
@@ -159,7 +172,8 @@ app.post('/lists/:list/:item', (req, res) => {
   }
 });
 
-app.post('/profile/:field', (req, res) => {
+// Change user profile field
+app.post('/profile/:user', (req, res) => {
   if (req.session.user_id) {
     User.updateUser(req.session.user_id, req.body.input, req.params.field)
       .then(() => {
@@ -170,6 +184,13 @@ app.post('/profile/:field', (req, res) => {
   }
 });
 
+// // Register a new user
+// app.post('/register', (req, res) => {
+//   if (!req.session) {
+
+//   }
+// });
+
 // User login page
 app.post('/logout', (req, res) => {
   req.session = null;
@@ -179,12 +200,3 @@ app.post('/logout', (req, res) => {
 app.listen(PORT, () => {
   console.log('listening on ', PORT);
 });
-
-// User.updateItem(2, 'REA');
-
-// User.updateUser(1, 'butts', 'last_name');
-
-// User.insertItem(1, 'Insomnia', 'REA')
-//   .then(() => {
-//     console.log('did done it?');
-//   });
