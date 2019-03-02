@@ -52,7 +52,7 @@ app.use('/api/users', usersRoutes(knex));
 // User main lists page
 app.get('/lists', (req, res) => {
   if (req.session) {
-    let ejsTemplate;
+    let ejsTemplate= {hello:"hello"}
     User.findByID(req.session.user_id)
       .then((user) => {
         ejsTemplate = user[0];
@@ -102,7 +102,7 @@ app.get('/lists/:list', (req, res) => {
 // });
 
 app.get('/login/:id', (req, res) => {
-  req.session.user_id = req.params.id;
+req.session.user_id = req.params.id;
   res.redirect('/lists');
 });
 

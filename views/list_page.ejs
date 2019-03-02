@@ -7,6 +7,7 @@
   <header>
     <% include ./partials/_nav %>
   </header>
+  <%=JSON.stringify(ejsTemplate)%>
   <div class="container">
     <div class="row">
       <div class="col-sm-6">
@@ -20,11 +21,9 @@
             </div>
           </form>
           <ul class="list-group">
-            <li class="list-group-item"><i class="fas fa-check"> </i>Star Wars<i class="fas fa-times"></i></li>
-            <li class="list-group-item"><i class="fas fa-check"> </i>Air Bud<i class="fas fa-times"></i></li>
-            <li class="list-group-item"><i class="fas fa-check"> </i>Toy Story<i class="fas fa-times"></i></li>
-            <li class="list-group-item"><i class="fas fa-check"> </i>Little Rascals<i class="fas fa-times"></i></li>
-            <li class="list-group-item"><i class="fas fa-check"> </i>Lion King<i class="fas fa-times"></i></li>
+              <% for (var item of ejsTemplate.item){%> 
+                <li class="list-group-item"><i class="fas fa-check"> </i><%= item.item_name%> <i class="fas fa-times"></i></li>
+                <%}%>
           </ul>
         </div>
       </div>

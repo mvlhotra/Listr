@@ -8,7 +8,8 @@
 
 <body>
   <header>
-    <% include ./partials/_nav %>
+    <% include ./partials/_nav %> 
+    
   </header>
   <!-- add item to category -->
   <section class="search">
@@ -33,16 +34,16 @@
   <div class="container">
     <div class="row buttons">
       <div class="col-sm-12">
-        <a href="https://www.w3schools.com" class="btn btn-lg btn-secondary">To Eat: <span>0</span></a>
+        <a href="https://www.w3schools.com" class="btn btn-lg btn-secondary">To Eat: <span> <%= ejsTemplate['EAT'] %> </span></a>
       </div>
       <div class="col-sm-12">
-        <a href="https://www.w3schools.com" class="btn btn-lg btn-secondary">To Read: <span>0</span></a>
+        <a href="https://www.w3schools.com" class="btn btn-lg btn-secondary">To Read: <span><%= ejsTemplate['REA'] %></span></a>
       </div>
       <div class="col-sm-12">
-        <a href="/towatch" class="btn btn-lg btn-secondary"> To Watch: <span>0</span></a>
+        <a href="/towatch" class="btn btn-lg btn-secondary"> To Watch: <span></span><%= ejsTemplate['WAT'] %></a>
       </div>
       <div class="col-sm-12">
-        <a href="https://www.w3schools.com" class="btn btn-lg btn-secondary">To Buy: <span>0</span></a>
+        <a href="https://www.w3schools.com" class="btn btn-lg btn-secondary">To Buy: <span><%= ejsTemplate['BUY'] %></span></a>
       </div>
     </div>
   </div>
