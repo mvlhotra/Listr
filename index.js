@@ -122,7 +122,7 @@ app.get('/register', (req, res) => {
   if (req.session.user_id) {
     res.redirect('/lists');
   } else {
-    res.render('/register', ejsTemplate);
+    res.render('register', ejsTemplate);
   }
 });
 
@@ -132,7 +132,19 @@ app.get('/profile', (req, res) => {
   if (!req.session.user_id) {
     res.redirect('/login');
   } else {
-    res.render('/profile', ejsTemplate);
+    res.render('profile', ejsTemplate);
+  }
+});
+
+// Add new item to a list
+app.post('/lists/:list', (req, res) => {
+  if (req.session.user_id) {
+    User.insert(req.session.user_id, req.body.itemName, req.params.list)
+      .then(() => {
+        res.status(201).send();
+      });
+  } else {
+    console.log('Must be a user');
   }
 });
 

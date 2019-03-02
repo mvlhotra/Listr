@@ -71,7 +71,7 @@ module.exports = (knex) => {
 
   function getItemID() {
     return new Promise((resolve, reject) => {
-      knex('item').select(max(item.id))
+      knex('item').max(item.id)
         .then((item) => {
           return resolve(item_id);
         })
@@ -79,11 +79,16 @@ module.exports = (knex) => {
     });
   }
   // HASNT BEEN TESTED
-  async function insertItem(data) {
-    knex('item').insert({ cat_code: data.cat, item_name: data.title });
-    const listID = await getListID(data.userID, data.cat);
+  async function insertItem(user, itemName, category) {
+    knex('item').insert({ cat_code: category, item_name: itemName });
+    const listID = await getListID(user, category);
     const itemID = await getItemID();
     knex('list_item').insert({ list_id: listID[0], item_id: itemID[0] });
+  }
+
+  function updateUserInfo(user, input, field) {
+    knex('user')
+      .update(field, 'input');
   }
 
   return {
@@ -91,13 +96,7 @@ module.exports = (knex) => {
     findByEmail: findUserByEmail,
     findByID: findUserByID,
     makeList: makeListByCategory,
-    insert: insertItem
+    insert: insertItem,
+    updateUser: updateUserInfo
   };
 };
-
-/* data = {
-  cat: 'WAT',
-  title: 'Batman',
-  userID: 2
-  }
-*/
