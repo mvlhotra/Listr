@@ -51,20 +51,15 @@ app.use('/api/users', usersRoutes(knex));
 // User main lists page
 app.get('/lists', (req, res) => {
   if (req.session.id) {
+    let ejsTemplate;
     User.findByID(req.session.id)
       .then((user) => {
-        const ejsTemplate = user[0];
-        User.count(user, 'EAT').then((catCount) => {
-          ejsTemplate.counts['EAT'] = catCount[0].count;
-        });
-        User.count(user, 'BUY').then((catCount) => {
-          ejsTemplate.counts['BUY'] = catCount[0].count;
-        });
-        User.count(user, 'WAT').then((catCount) => {
-          ejsTemplate.counts['WAT'] = catCount[0].count;
-        });
-        User.count(user, 'REA').then((catCount) => {
-          ejsTemplate.counts['REA'] = catCount[0].count;
+        ejsTemplate = user[0];
+      });
+    User.count(req.session.id)
+      .then((catCounts) => {
+        catCounts.forEach((cat) => {
+          ejsTemplate[cat.cat_code] = cat.count;
         });
         res.render('index', ejsTemplate);
       });

@@ -1,14 +1,16 @@
 //  Functions to query data out psql
 
 module.exports = (knex) => {
-  function countList(userID, listType) {
+  function countList(userID) {
     return new Promise((resolve, reject) => {
-      knex('users').count('*')
-        .join('list', 'list.user_id', '=', 'users.id')
-        .where({ 'users.id': userID })
-        .where({ cat_code: listType })
-        .then((count) => {
-          return resolve(count);
+      knex('list_item').select('users.id', 'list_item.list_id', 'list.cat_code').count('list_item.item_id')
+        .join('list', 'list.id', '=', 'list_item.list_id')
+        .join('users', 'users.id', '=', 'list.user_id')
+        .groupBy('list_item.list_id', 'list.cat_code', 'users.id')
+        .having('users.id', '=', userID)
+        .orderBy('list_item.list_id')
+        .then((countCats) => {
+          return resolve(countCats);
         })
         .catch((error) => reject(error));
     });
