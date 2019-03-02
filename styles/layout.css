@@ -1,13 +1,22 @@
-body {
+body, html {
   background: #ffd89b;
   /* fallback for old browsers */
   /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-gradient(linear, left bottom, left top, from(#19547b), to(#ffd89b));
-  background: linear-gradient(to top, #19547b, #ffd89b);
+  background: -webkit-gradient(linear, left bottom, left top, from(#ffd89b), to(#19547b));
+  background: linear-gradient(to top, #ffd89b, #19547b);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-attachment: fixed;
+  height: 100%;
+  margin-top: 200px;
 }
 
-body h1 {
-  color: #ff00cc;
+body header, html header {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+}
+
+.container {
+  font-family: 'Space Mono', monospace;
+  color: #fff;
 }
 /*# sourceMappingURL=layout.css.map */
