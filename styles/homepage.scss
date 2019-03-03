@@ -1,4 +1,3 @@
-
 .container{
     text-align:center;
     .buttons{
@@ -6,14 +5,11 @@
       .btn{
         min-width:200px;
       }
+      .col-sm-12{
+        margin-top:10px;
+      }
     }
 
 }
 
-.welcome{
-  display:none;
-}
 
-#test{
-  display:none;
-}
