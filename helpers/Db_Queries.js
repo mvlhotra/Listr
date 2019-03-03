@@ -136,6 +136,18 @@ module.exports = (knex) => {
       });
   }
 
+  function deleteItem(itemID) {
+    knex('list_item')
+      .where({ 'list_item.item_id': itemID })
+      .del()
+      .then(() => {
+        knex('item')
+          .where({ 'item.id': itemID })
+          .del()
+          .catch(err => console.log(err));
+      });
+  }
+
   return {
     count: countList,
     findByEmail: findUserByEmail,
@@ -144,6 +156,7 @@ module.exports = (knex) => {
     insertItem: insertNewItem,
     updateUser: updateUserInfo,
     register: registerNewUser,
-    updateItem: updateItemCategory
+    updateItem: updateItemCategory,
+    delete: deleteItem
   };
 };
