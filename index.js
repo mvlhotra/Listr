@@ -47,7 +47,7 @@ app.use(cookieSession({
 }));
 
 // Mount all resource routes
-app.use('/api/items', usersRoutes(knex));
+app.use('/api/users', usersRoutes(knex));
 
 app.get("/", (req, res) => {
   res.redirect('/lists');
