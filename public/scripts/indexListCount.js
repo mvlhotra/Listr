@@ -27,7 +27,7 @@ $(document).ready(function () {
     let searchHits;
     const $newItemName = $('.smart-search .user-item');
     $.post('/sorter', { item: $newItemName.val(), user: $('#EATCount').data('id') })
-      .done(function(data) {
+      .done(function (data) {
         if (data.status === 201) {
           $newItemName.val('').focus();
           updatePageCounts();
@@ -40,24 +40,24 @@ $(document).ready(function () {
           // Lightbox code here
         }
       });
-    });
-      // $.ajax({
-      // url: '/sorter',
-      // type: 'POST',
-      // data: {
-      //   item: newItemName.val()
-      // },
-      // success: (function(data) {
-      //   console.log(data)
-      // });
-    // if (searchHits.length === 1) {
-    //   console.log(searchHits);
-    //   $.post(`/lists/${searchHits[0].type}`, searchHits[0].name)
-    //     .done(updatePageCounts());
-    // }
+  });
+  // $.ajax({
+  // url: '/sorter',
+  // type: 'POST',
+  // data: {
+  //   item: newItemName.val()
+  // },
+  // success: (function(data) {
+  //   console.log(data)
+  // });
+  // if (searchHits.length === 1) {
+  //   console.log(searchHits);
+  //   $.post(`/lists/${searchHits[0].type}`, searchHits[0].name)
+  //     .done(updatePageCounts());
+  // }
   // });
 
-    // $postTweet.submit(function (ev) {
+  // $postTweet.submit(function (ev) {
   //   ev.preventDefault();
   //   $('.errorMsg').slideUp(50);
   //   if ($tweetText.val() === '' || $tweetText.val() === null) {
@@ -74,4 +74,10 @@ $(document).ready(function () {
   //   }
   // });
 
+  const user = $('#EATCount').data('id');
+  $.ajax(`/api/listCounts/${user}`, { method: 'GET' }).then(function (content) {
+    listCounts = getListCounts(content);
+    console.log(listCounts);
+    updateCounts(listCounts);
+  });
 });

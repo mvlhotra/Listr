@@ -25,6 +25,10 @@
   color: #fff;
 }
 
+.list-container .list-group {
+  display: none;
+}
+
 .list-container .list-group .list-group-item {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -33,6 +37,18 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+.list-container .list-group .list-group-item .done {
+  background-color: #008000;
+}
+
+.list-container .list-group .list-group-item i {
+  color: #fff;
+}
+
+.list-container .list-group .list-group-item .edit-delete i {
+  padding: 0 10px;
 }
 
 .col {
