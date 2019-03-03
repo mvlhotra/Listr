@@ -15,6 +15,7 @@ $(document).ready(function () {
   const user = $('#EATCount').data('id');
   $.ajax(`/api/listCounts/${user}`, { method: 'GET' }).then(function (content) {
     listCounts = getListCounts(content);
+    console.log(listCounts);
     updateCounts(listCounts);
   });
 });

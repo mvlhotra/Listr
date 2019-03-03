@@ -9,58 +9,64 @@
 
 </head>
 
+<p id="test">
+  HEYEYEYEY
+</p>
+
 <body>
   <header>
     <% include ./partials/_nav %>
 
   </header>
   <!-- add item to category -->
-
   <!-- category value variables -->
+  <div class="welcome">
+    <h1>Welcome back, <%=ejsTemplate.first_name%>.</h1>
+    <p>What to do?</p>
+  </div>
   <section class="search">
     <div class="container">
-      <h1 id="top">Welcome back, <%=ejsTemplate.first_name%>.</h1>
-      <p class="lead">What to do?</p>
+      <div class="row">
+        <div class="col-md-12">
+          <form action="" accept-charset="UTF-8" method="post">
+            <div class="input-group">
+              <input type="text" name="add" id="add" placeholder="Type anything..." class="form-control" required>
+              <span class="input-group-btn">
+                <input type="submit" name="commit" value="Add" class="btn btn-secondary" data-disable-with="Search">
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </section>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <form action="" accept-charset="UTF-8" method="post">
-          <div class="input-group">
-            <input type="text" name="add" id="add" placeholder="Type anything..." class="form-control">
-            <span class="input-group-btn">
-              <input type="submit" name="commit" value="Add" class="btn btn-secondary" data-disable-with="Search">
-            </span>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
 
-  <div class="container">
-    <div class="row buttons">
-      <div class="col-sm-12">
-        <a data-fancybox data-type="ajax" data-src="/multiple" href="javascript:;" class="btn btn-primary">Open demo</a>
+  <section id="cat-buttons">
+    <div class="container">
+      <div class="row cat-buttons">
+
+        <a data-fancybox data-type="ajax" data-src="/multiple" href="javascript:;" class="btn btn-primary">Open
+          demo</a>
         </p>
-        <a href="/lists/EAT" class="btn btn-lg btn-secondary">To Eat: <span data-id="<%=ejsTemplate.id%>"
-            id="EATCount"></span></a>
-      </div>
-      <div class="col-sm-12">
-        <a href="/lists/REA" class="btn btn-lg btn-secondary">To Read: <span data-id="<%=ejsTemplate.id%>"
-            id="REACount"></span></a>
-      </div>
-      <div class="col-sm-12">
-        <a href="/lists/WAT" class="btn btn-lg btn-secondary"> To Watch: <span data-id="<%=ejsTemplate.id%>"
-            id="WATCount"></span></a>
-      </div>
-      <div class="col-sm-12">
-        <a href="/lists/BUY" class="btn btn-lg btn-secondary">To Buy: <span data-id="<%=ejsTemplate.id%>"
-            id="BUYCount"></span></a>
+        <div class="col-sm-12">
+          <a href="/lists/EAT" class="btn btn-lg btn-secondary">To Eat: <span data-id="<%=ejsTemplate.id%>"
+              id="EATCount"></span></a>
+        </div>
+        <div class="col-sm-12">
+          <a href="/lists/REA" class="btn btn-lg btn-secondary">To Read: <span data-id="<%=ejsTemplate.id%>"
+              id="REACount"></span></a>
+        </div>
+        <div class="col-sm-12">
+          <a href="/lists/WAT" class="btn btn-lg btn-secondary"> To Watch: <span data-id="<%=ejsTemplate.id%>"
+              id="WATCount"></span></a>
+        </div>
+        <div class="col-sm-12">
+          <a href="/lists/BUY" class="btn btn-lg btn-secondary">To Buy: <span data-id="<%=ejsTemplate.id%>"
+              id="BUYCount"></span></a>
+        </div>
       </div>
     </div>
-  </div>
-  </div>
-
+  </section>
 
 </body>
 

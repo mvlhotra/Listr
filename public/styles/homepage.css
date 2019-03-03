@@ -10,6 +10,10 @@
   min-width: 200px;
 }
 
-.container .buttons .col-sm-12 {
-  margin-top: 10px;
+.welcome {
+  display: none;
+}
+
+#test {
+  display: none;
 }
