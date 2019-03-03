@@ -202,10 +202,7 @@ app.post('/lists/:list/:item', (req, res) => {
 
 app.post('/lists/:list/:item/delete', (req, res) => {
   if (req.session.user_id) {
-    User.delete(req.params.item)
-      .then(() => {
-        res.status(201).send();
-      });
+    User.delete(req.params.item);
   } else {
     console.log('Must be a user');
   }
