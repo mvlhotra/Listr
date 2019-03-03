@@ -23,6 +23,7 @@ const listRoutes = require('./routes/list');
 
 // Separate file with user related Db functions
 const User = require('./helpers/Db_Queries.js')(knex);
+const smartSort = require('./helpers/smartSorter.js')();
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -160,11 +161,25 @@ app.get('/profile/edit', (req, res) => {
   }
 });
 
+app.post('/sorter', (req, res) => {
+  console.log(req.body.item);
+  smartSort.search(req.body.item).then((searchHits) => {
+    console.log(searchHits.length);
+    if (searchHits.length === 1) {
+      User.insertItem(req.body.user, searchHits[0].name, searchHits[0].type);
+      res.status(201).send({ status: 201, cat: searchHits[0].type });
+    } else if (searchHits.length === 0) {
+      res.send('No match found');
+    } else {
+      res.send(searchHits);
+    }
+  });
+});
 
 // Add new item to a list
 app.post('/lists/:list', (req, res) => {
   if (req.session.user_id) {
-    User.insert(req.session.user_id, req.body.itemName, req.params.list)
+    User.insert(req.session.user_id, req.body.text, req.params.list)
       .then(() => {
         res.status(201).send();
       });
