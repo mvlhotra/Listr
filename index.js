@@ -200,6 +200,17 @@ app.post('/lists/:list/:item', (req, res) => {
   }
 });
 
+app.post('lists/:list/:item/delete', (req, res) => {
+  if (req.session.user_id) {
+    User.delete(req.params.item)
+      .then(() => {
+        res.status(201).send();
+      });
+  } else {
+    console.log('Must be a user');
+  }
+});
+
 // Change user profile field
 app.post('/profile/:user', (req, res) => {
   if (req.session.user_id) {
