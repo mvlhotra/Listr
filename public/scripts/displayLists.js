@@ -15,19 +15,20 @@ $(document).ready(function () {
       formatListItems(content);
     });
   }
-
+  getListItems();
   $('.list-group').fadeIn();
 
   $('.list-group').on('click', '.fas.fa-check', function (done) {
     const checkedItemId = $(this).parent($(done.target)).attr('data-itemId');
     $.ajax({
       type: 'POST',
-      url: 'something',
-      data: checkedItemId
-    }).done(function () { getListItems(); });
+      url: `${cat_code}/${checkedItemId}/delete`,
+    }).done(function () {
+      getListItems();
+    });
 
   });
-  getListItems();
+
 });
 
 
