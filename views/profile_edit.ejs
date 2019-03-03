@@ -7,13 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <% include ./partials/_header %>
     <link rel="stylesheet" type="text/css" media="screen" href="../styles/listpage.css" />
+ 
     <!-- <script src="main.js"></script> -->
+    <%= JSON.stringify(ejsTemplate) %> 
 </head>
+
 <body>
         <div class="container">
                 <h1>Edit Profile</h1>
-                  <hr>
-                  edit form column
                   <div class="container">
                   <div class="col-md-9 personal-info">
                     <h3>Personal info</h3>
@@ -22,31 +23,25 @@
                       <div class="form-group">
                         <label class="col-lg-3 control-label">First name:</label>
                         <div class="col-lg-8">
-                          <input class="form-control" type="text" value="FirstName">
+                          <input class="form-control" type="text" value = "<%=ejsTemplate.first_name %>" name="firstName">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-lg-3 control-label">Last name:</label>
                         <div class="col-lg-8">
-                          <input class="form-control" type="text" value="LastName">
+                          <input class="form-control" type="text"  value = "<%=ejsTemplate.last_name %>" name="lastName">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-lg-3 control-label">Email:</label>
                         <div class="col-lg-8">
-                          <input class="form-control" type="text" value="example@gmail.com">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-md-3 control-label">Username:</label>
-                        <div class="col-md-8">
-                          <input class="form-control" type="text" value="Username">
+                          <input class="form-control" type="text"  value = "<%=ejsTemplate.email %>" name="email">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-md-3 control-label">Password:</label>
                         <div class="col-md-8">
-                          <input class="form-control" type="password" value="11111122333">
+                          <input class="form-control" type="password"  name="password">
                         </div>
                       </div>
                       <div class="form-group">
