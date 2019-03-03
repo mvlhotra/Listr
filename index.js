@@ -18,6 +18,8 @@ const knexLogger = require('knex-logger');
 
 // Seperated Routes for each Resource
 const usersRoutes = require('./routes/users');
+const listCountRoutes = require('./routes/listCounts');
+const listRoutes = require('./routes/list');
 
 // Separate file with user related Db functions
 const User = require('./helpers/Db_Queries.js')(knex);
@@ -48,11 +50,17 @@ app.use(cookieSession({
 
 // Mount all resource routes
 app.use('/api/users', usersRoutes(knex));
+app.use('/api/listCounts', listCountRoutes(knex));
+app.use('/api/lists', listRoutes(knex));
 
-// User main lists page
+app.get('/', (req, res) => {
+  res.redirect('/lists');
+});
+
+// View User main lists page
 app.get('/lists', (req, res) => {
-  if (req.session) {
-    let ejsTemplate= {hello:"hello"}
+  let ejsTemplate;
+  if (req.session.user_id) {
     User.findByID(req.session.user_id)
       .then((user) => {
         ejsTemplate = user[0];
@@ -63,29 +71,29 @@ app.get('/lists', (req, res) => {
         catCounts.forEach((cat) => {
           ejsTemplate[cat.cat_code] = cat.count;
         });
-        res.render('index', {ejsTemplate:ejsTemplate});
+        res.render('index', { ejsTemplate: ejsTemplate });
       });
   } else {
     res.redirect('/login');
   }
 });
 
-// User individual list page
+// View user individual list page
 app.get('/lists/:list', (req, res) => {
+  let ejsTemplate;
   if (req.session.user_id) {
-    let ejsTemplate;
     User.findByID(req.session.user_id)
       .then((user) => {
         ejsTemplate = user[0];
         ejsTemplate.cookie = req.session;
       });
-    User.makeList(req.session.user_id, req.params.list)
+    User.makeList(req.session.user_id, req.params.list.toUpperCase())
       .then((list) => {
         ejsTemplate.item = [];
         list.forEach((item) => {
           ejsTemplate.item.push(item);
         });
-        res.render('list_page', {ejsTemplate:ejsTemplate});
+        res.render('list_page', { ejsTemplate: ejsTemplate });
       });
   } else {
     res.redirect('/login');
@@ -101,40 +109,57 @@ app.get('/lists/:list', (req, res) => {
 //     });
 // });
 
+// Force a login
 app.get('/login/:id', (req, res) => {
-req.session.user_id = req.params.id;
+  req.session.user_id = req.params.id;
   res.redirect('/lists');
 });
 
-// User login page
+// View user login page
 app.get('/login', (req, res) => {
   const ejsTemplate = { cookie: req.session };
   if (req.session.user_id) {
     res.redirect('/lists');
   } else {
-    res.render('login', {ejsTemplate:ejsTemplate});
+    res.render('login', { ejsTemplate: ejsTemplate });
   }
 });
 
-// Register new user
+// View register new user page
 app.get('/register', (req, res) => {
   const ejsTemplate = { cookie: req.session };
   if (req.session.user_id) {
     res.redirect('/lists');
   } else {
-    res.render('register', {ejsTemplate:ejsTemplate});
+    res.render('register', { ejsTemplate: ejsTemplate });
   }
 });
 
-// Access user profile
+// View user profile
 app.get('/profile', (req, res) => {
-  const ejsTemplate = { cookie: req.session };
+  let ejsTemplate;
   if (!req.session.user_id) {
     res.redirect('/login');
   } else {
-    res.render('profile', {ejsTemplate:ejsTemplate});
+    User.findByID(req.session.user_id)
+      .then((user) => {
+        ejsTemplate = user[0];
+        ejsTemplate.cookie = req.session;
+        res.render('profile', { ejsTemplate: ejsTemplate });
+      });
   }
 });
+
+// View page for editing user profile
+app.get('/profile/edit', (req, res) => {
+  const ejsTemplate = { cookie: req.session.user_id };
+  if (!req.session.user_id) {
+    res.redirect('/login');
+  } else {
+    res.render('profile_edit', { ejsTemplate: ejsTemplate });
+  }
+});
+
 
 // Add new item to a list
 app.post('/lists/:list', (req, res) => {
@@ -148,9 +173,10 @@ app.post('/lists/:list', (req, res) => {
   }
 });
 
+// Change list item category
 app.post('/lists/:list/:item', (req, res) => {
   if (req.session.user_id) {
-    User.updateItem(req.params.item, req.body.newCat)
+    User.updateItem(req.session.user_id, req.params.item, req.params.list.toUpperCase(), req.body.newCat.toUpperCase())
       .then(() => {
         res.status(201).send();
       });
@@ -159,7 +185,8 @@ app.post('/lists/:list/:item', (req, res) => {
   }
 });
 
-app.post('/profile/:field', (req, res) => {
+// Change user profile field
+app.post('/profile/:user', (req, res) => {
   if (req.session.user_id) {
     User.updateUser(req.session.user_id, req.body.input, req.params.field)
       .then(() => {
@@ -170,21 +197,23 @@ app.post('/profile/:field', (req, res) => {
   }
 });
 
+// // Register a new user
+// app.post('/register', (req, res) => {
+//   if (!req.session) {
+
+//   }
+// });
+
 // User login page
 app.post('/logout', (req, res) => {
   req.session = null;
-  res.render('login');
+  res.redirect('/login');
+});
+
+app.get('/multiple', (req, res) => {
+  res.render('multiple');
 });
 
 app.listen(PORT, () => {
   console.log('listening on ', PORT);
 });
-
-// User.updateItem(2, 'REA');
-
-// User.updateUser(1, 'butts', 'last_name');
-
-// User.insertItem(1, 'Insomnia', 'REA')
-//   .then(() => {
-//     console.log('did done it?');
-//   });

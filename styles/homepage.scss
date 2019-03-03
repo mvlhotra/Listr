@@ -2,6 +2,9 @@
     text-align:center;
     .buttons{
       text-align:center;
+      .btn{
+        min-width:200px;
+      }
       .col-sm-12{
         margin-top:10px;
       }
