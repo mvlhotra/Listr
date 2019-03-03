@@ -153,11 +153,16 @@ app.get('/profile', (req, res) => {
 
 // View page for editing user profile
 app.get('/profile/edit', (req, res) => {
-  const ejsTemplate = { cookie: req.session.user_id };
+  let ejsTemplate;
   if (!req.session.user_id) {
     res.redirect('/login');
   } else {
-    res.render('profile_edit', { ejsTemplate: ejsTemplate });
+    User.findByID(req.session.user_id)
+    .then((user) => {
+      ejsTemplate = user[0];
+      ejsTemplate.cookie = req.session;
+      res.render('profile_edit', { ejsTemplate: ejsTemplate });
+    });   
   }
 });
 
