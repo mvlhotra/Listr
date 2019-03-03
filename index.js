@@ -18,6 +18,7 @@ const knexLogger = require('knex-logger');
 
 // Seperated Routes for each Resource
 const usersRoutes = require('./routes/users');
+const listCountRoutes = require('./routes/listCounts');
 
 // Separate file with user related Db functions
 const User = require('./helpers/Db_Queries.js')(knex);
@@ -48,7 +49,7 @@ app.use(cookieSession({
 
 // Mount all resource routes
 app.use('/api/users', usersRoutes(knex));
-
+app.use('/api/listCounts', listCountRoutes(knex));
 
 
 app.get("/", (req, res) => {
