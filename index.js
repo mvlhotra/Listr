@@ -51,7 +51,6 @@ app.use(cookieSession({
 app.use('/api/users', usersRoutes(knex));
 app.use('/api/listCounts', listCountRoutes(knex));
 
-
 app.get("/", (req, res) => {
   res.redirect('/lists');
 });
