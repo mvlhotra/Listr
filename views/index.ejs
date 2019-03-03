@@ -5,7 +5,7 @@
   <% include ./partials/_header %>
   <link rel="stylesheet" href="../styles/homepage.css" type="text/css" />
   <script type="text/javascript" src="/scripts/indexListCount.js"></script>
-  <script type="text/javascript" src="scripts/dataHelpers.js"></script>
+  <script type="text/javascript" src="/scripts/dataHelpers.js"></script>
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
 
 </head>
@@ -27,7 +27,8 @@
         <div class="col-md-12">
           <form class="smart-search" action="" accept-charset="UTF-8" method="post">
             <div class="input-group">
-              <input type="text" name="add" id="add" placeholder="Type anything..." class="form-control user-item" required>
+              <input type="text" name="add" id="add" placeholder="Type anything..." class="form-control user-item"
+                required>
               <span class="input-group-btn">
                 <input type="submit" name="commit" value="Add" class="btn btn-secondary" data-disable-with="Search">
               </span>
@@ -41,25 +42,22 @@
   <section id="cat-buttons">
     <div class="container">
       <div class="row cat-buttons">
-
-        <a data-fancybox data-type="ajax" data-src="/multiple" href="javascript:;" class="btn btn-primary">Open
-          demo</a>
         </p>
         <div class="col-sm-12">
           <a href="/lists/EAT" class="btn btn-lg btn-secondary">To Eat: <span data-id="<%=ejsTemplate.id%>"
-              id="EATCount"></span></a>
+              id="EATCount">0</span></a>
         </div>
         <div class="col-sm-12">
           <a href="/lists/REA" class="btn btn-lg btn-secondary">To Read: <span data-id="<%=ejsTemplate.id%>"
-              id="REACount"></span></a>
+              id="REACount">0</span></a>
         </div>
         <div class="col-sm-12">
           <a href="/lists/WAT" class="btn btn-lg btn-secondary"> To Watch: <span data-id="<%=ejsTemplate.id%>"
-              id="WATCount"></span></a>
+              id="WATCount">0</span></a>
         </div>
         <div class="col-sm-12">
           <a href="/lists/BUY" class="btn btn-lg btn-secondary">To Buy: <span data-id="<%=ejsTemplate.id%>"
-              id="BUYCount"></span></a>
+              id="BUYCount">0</span></a>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ $(document).ready(function () {
 
   function formatListItems(items) {
     items.forEach((item) => {
-      $('.list-group').append(`<li class="list-group-item" data-itemId =${item.id}><i class="fas fa-check"></i> ${item.item_name}<span class="edit-delete"><a href=""><i class="fas fa-pencil-alt"></i></a><a href=""><i class="fas fa-times"></i></a></span>`);
+      $('.list-group').append(`<li class="list-group-item" data-itemId =${item.id}><i class="fas fa-check"></i> <span class="item-name">${item.item_name}</span> <span class="edit-delete"><i class="fas fa-times"></i></span>`);
     });
   }
 
@@ -24,10 +24,40 @@ $(document).ready(function () {
       type: 'POST',
       url: `${cat_code}/${checkedItemId}/delete`,
     }).done(function () {
+      $('.list-group').empty();
       getListItems();
     });
 
+
   });
+
+  $('.list-group').on('click', '.fas.fa-times', function (done) {
+    const deletedItemId = $(this).parent($(done.target)).attr('data-itemId');
+    $.ajax({
+      type: 'POST',
+      url: `${cat_code}/${deletedItemId}/delete`,
+    }).done(function () {
+      $('.list-group').empty();
+      getListItems();
+    });
+
+
+  });
+
+  $('.list-group').on('click', '.item-name', function (done) {
+    const editItemId = $(this).parent($(done.target)).attr('data-itemId');
+    console.log(editItemId);
+    // $.ajax({
+    //   type: 'POST',
+    //   url: `${cat_code}/${checkedItemId}`,
+    // }).done(function () {
+    //   $('.list-group').empty();
+    //   getListItems();
+    // });
+
+
+  });
+
 
 });
 
