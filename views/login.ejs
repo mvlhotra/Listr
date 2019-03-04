@@ -5,7 +5,7 @@
   <% include ./partials/_header %>
   <link rel="stylesheet" href="../styles/login.css" type="text/css" />
 </head>
-
+<% JSON.stringify(ejsTemplate) %>
 <body>
   <header>
     <% include ./partials/_nav %>
@@ -13,7 +13,7 @@
 
   <body class="text-center">
     <div class="container">
-      <form class="form-signin">
+      <form class="form-signin" method="GET" action="">
         <i class="fas fa-check-square"></i>
         <h1>Login to Listr</h1>
         <label for="inputEmail" class="sr-only">Email</label>

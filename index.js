@@ -105,7 +105,7 @@ app.get('/lists/:list', (req, res) => {
 // app.get('/login/:email', (req, res) => {
 //   User.findByEmail(req.params.email)
 //     .then((user) => {
-//       req.session.user_id = user[0].id;
+//       req.session.user_id = req.params.email;
 //       res.redirect('/lists');
 //     });
 // });
@@ -118,11 +118,17 @@ app.get('/login/:id', (req, res) => {
 
 // View user login page
 app.get('/login', (req, res) => {
-  const ejsTemplate = { cookie: req.session };
+ let ejsTemplate;
   if (req.session.user_id) {
     res.redirect('/lists');
   } else {
-    res.render('login', { ejsTemplate: ejsTemplate });
+    User.findByID(req.session.user_id)
+      .then((user) => {
+        ejsTemplate = user[0];
+        ejsTemplate.cookie = req.session;
+        res.render('login', { ejsTemplate: ejsTemplate });
+      });
+   
   }
 });
 
