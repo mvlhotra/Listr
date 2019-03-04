@@ -102,25 +102,30 @@ app.get('/lists/:list', (req, res) => {
 });
 
 app.get('/lists/:list/:item', (req, res) => {
+  User.findItem(req.params.item).then((iName) => {
+    let itemName = iName[0].item_name;
+    console.log(itemName);
+    if (req.params.list === 'WAT') {
+      smartSort.watch(itemName).then((details) => {
+        res.send(details);
+      });
 
-  switch (req.params.list) {
-    case 'WAT':
-      smartSort.watch(req.query.name).then((details) => {
+    } else if (req.params.list === 'REA') {
+      smartSort.read(itemName).then((details) => {
         res.send(details);
       });
-    case 'REA':
-      smartSort.read(req.query.name).then((details) => {
+    } else if (req.params.list === 'BUY') {
+      smartSort.buy(itemName).then((details) => {
         res.send(details);
       });
-    case 'BUY':
-      smartSort.buy(req.query.name).then((details) => {
+    } else if (req.params.list === 'EAT') {
+      smartSort.eat(itemName).then((details) => {
         res.send(details);
       });
-    case 'EAT':
-      smartSort.eat(req.query.name).then((details) => {
-        res.send(details);
-      });
-  }
+    } else {
+      res.send('not found.');
+    }
+  }).catch(err => { console.log(err) });
 });
 
 // Force a login without authentication... Yes we know, bad bad
@@ -140,7 +145,7 @@ app.get('/login/:id', (req, res) => {
 
 // View user login page
 app.get('/login', (req, res) => {
- let ejsTemplate;
+  let ejsTemplate;
   if (req.session.user_id) {
     res.redirect('/lists');
   } else {
@@ -150,7 +155,7 @@ app.get('/login', (req, res) => {
         ejsTemplate.cookie = req.session;
         res.render('login', { ejsTemplate: ejsTemplate });
       });
-   
+
   }
 });
 
@@ -186,11 +191,11 @@ app.get('/profile/edit', (req, res) => {
     res.redirect('/login');
   } else {
     User.findByID(req.session.user_id)
-    .then((user) => {
-      ejsTemplate = user[0];
-      ejsTemplate.cookie = req.session;
-      res.render('profile_edit', { ejsTemplate: ejsTemplate });
-    });   
+      .then((user) => {
+        ejsTemplate = user[0];
+        ejsTemplate.cookie = req.session;
+        res.render('profile_edit', { ejsTemplate: ejsTemplate });
+      });
   }
 });
 
@@ -245,15 +250,15 @@ app.post('/lists/:list/:item/delete', (req, res) => {
 app.post('/profile/:user', (req, res) => {
   if (req.session.user_id) {
     var firstName = req.body.firstName;
-    var lastName =  req.body.lastName;
+    var lastName = req.body.lastName;
     var email = req.body.email;
-   console.log(typeof email);
-  User.updateUser(req.session.user_id, email, "email");
-  User.updateUser(req.session.user_id, firstName, "first_name");
-  User.updateUser(req.session.user_id, lastName, "last_name");
-  
-        res.redirect("/profile");
-    
+    console.log(typeof email);
+    User.updateUser(req.session.user_id, email, "email");
+    User.updateUser(req.session.user_id, firstName, "first_name");
+    User.updateUser(req.session.user_id, lastName, "last_name");
+
+    res.redirect("/profile");
+
   } else {
     console.log('Must be a user');
   }

@@ -46,9 +46,7 @@ $(document).ready(function () {
 
   $('.list-group').on('click', '.item-name', function (done) {
     const editItemId = $(this).parent($(done.target)).attr('data-itemId');
-    console.log(editItemId);
-    console.log($('.item-name ').html());
-    $.get(`/lists/${cat_code}/${editItemId}`, { name: $('.item-name').html() })
+    $.get(`/lists/${cat_code}/${editItemId}`)
       .done(function (itemDetails) {
         console.log(itemDetails);
       });

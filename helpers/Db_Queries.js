@@ -148,6 +148,19 @@ module.exports = (knex) => {
       });
   }
 
+  function findItemById(itemID) {
+    return new Promise((resolve, reject) => {
+      knex('item')
+        .select('item_name')
+        .where({ 'id': itemID })
+        .then((rows) => {
+          const itemName = rows;
+          return resolve(itemName);
+        })
+        .catch(err => console.log(err));
+    });
+  }
+
   return {
     count: countList,
     findByEmail: findUserByEmail,
@@ -157,6 +170,7 @@ module.exports = (knex) => {
     updateUser: updateUserInfo,
     register: registerNewUser,
     updateItem: updateItemCategory,
-    delete: deleteItem
+    delete: deleteItem,
+    findItem: findItemById
   };
 };
