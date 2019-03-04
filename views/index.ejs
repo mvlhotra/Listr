@@ -19,7 +19,7 @@
   <!-- category value variables -->
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 ">
+      <div class="col-sm-12 welcome">
         <h1>Welcome back, <%=ejsTemplate.first_name%>.</h1>
         <p>What to do?</p>
       </div>
@@ -28,10 +28,10 @@
   <section class="search">
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-6 mx-auto">
           <form class="smart-search" action="" accept-charset="UTF-8" method="post">
             <div class="input-group">
-              <input type="text" name="add" id="add" placeholder="Type anything..." class="form-control user-item"
+              <input type="text" name="add" id="add" placeholder="Add an item..." class="form-control user-item"
                 required>
               <span class="input-group-btn">
                 <input type="submit" name="commit" value="Add" class="btn btn-secondary" data-disable-with="Search">
@@ -45,7 +45,7 @@
   <section class="multi">
     <div class="container">
       <div class="row">
-        <div class="multi-buttons">
+        <div class="col-sm-12 multi-buttons">
 
         </div>
       </div>
@@ -54,22 +54,21 @@
 
   <section id="cat-buttons">
     <div class="container">
-      <div class="row cat-buttons">
-        </p>
-        <div class="col-sm-12">
-          <a href="/lists/EAT" class="btn btn-lg btn-secondary">To Eat: <span data-id="<%=ejsTemplate.id%>"
+      <div class="row">
+        <div class="col-sm-6">
+          <a href="/lists/EAT" class="btn btn-lg btn-secondary bouton">To Eat: <span data-id="<%=ejsTemplate.id%>"
               id="EATCount">0</span></a>
         </div>
-        <div class="col-sm-12">
-          <a href="/lists/REA" class="btn btn-lg btn-secondary">To Read: <span data-id="<%=ejsTemplate.id%>"
+        <div class="col-sm-6">
+          <a href="/lists/REA" class="btn btn-lg btn-secondary bouton">To Read: <span data-id="<%=ejsTemplate.id%>"
               id="REACount">0</span></a>
         </div>
-        <div class="col-sm-12">
-          <a href="/lists/WAT" class="btn btn-lg btn-secondary"> To Watch: <span data-id="<%=ejsTemplate.id%>"
+        <div class="col-sm-6">
+          <a href="/lists/WAT" class="btn btn-lg btn-secondary bouton"> To Watch: <span data-id="<%=ejsTemplate.id%>"
               id="WATCount">0</span></a>
         </div>
-        <div class="col-sm-12">
-          <a href="/lists/BUY" class="btn btn-lg btn-secondary">To Buy: <span data-id="<%=ejsTemplate.id%>"
+        <div class="col-sm-6">
+          <a href="/lists/BUY" class="btn btn-lg btn-secondary bouton">To Buy: <span data-id="<%=ejsTemplate.id%>"
               id="BUYCount">0</span></a>
         </div>
       </div>

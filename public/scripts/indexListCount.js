@@ -20,6 +20,7 @@ $(document).ready(function () {
   }
 
   updatePageCounts();
+  $('.bouton').fadeIn(1000);
 
   $(document).on('submit', '.didYouMean', function (event) {
     event.preventDefault();
@@ -42,7 +43,7 @@ $(document).ready(function () {
   });
 
   function makeButtons(data) {
-    let multiString = '<p>Did you mean?</p>'
+    let multiString = '';
     data.forEach(function (result) {
       let typeFull;
       if (result.type === 'WAT') {
@@ -54,7 +55,7 @@ $(document).ready(function () {
       } else {
         typeFull = '(To Eat)';
       }
-      multiString += `<form class='didYouMean' buttonText="${result.name}" buttonType="${result.type}" ><button type="submit" formmethod="POST" value="${result.name}" name="text" formaction="/lists/${result.type}" class="btn btn-secondary">${result.name} ${typeFull}</button></form>`
+      multiString += `<form class='didYouMean' buttonText="${result.name}" buttonType="${result.type}" ><button type="submit" formmethod="POST" value="${result.name}" name="text" formaction="/lists/${result.type}" class="btn btn-dark">${result.name} ${typeFull}</button></form>`
     });
     $('.multi .multi-buttons').append(multiString);
   };

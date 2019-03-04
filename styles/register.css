@@ -1,1 +1,9 @@
-/* No CSS *//*# sourceMappingURL=register.css.map */
+body, html {
+  max-width: 65%;
+  margin: 0 auto;
+}
+
+.container {
+  margin-top: 100px;
+}
+/*# sourceMappingURL=register.css.map */

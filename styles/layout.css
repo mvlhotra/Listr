@@ -20,10 +20,6 @@ body header, html header {
   color: #fff;
 }
 
-.btn .logout {
-  color: white;
-}
-
 .modal-container {
   max-width: 500px;
   padding: 0;

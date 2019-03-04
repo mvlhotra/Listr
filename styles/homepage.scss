@@ -1,5 +1,25 @@
-.container .welcome{
+.welcome{
   h1{
     text-align:center;
+  }
+  p{
+    text-align:center;
+  }
+}
+
+#cat-buttons{
+  margin-top:20px;
+  .bouton{
+    margin-top:10px;
+    display:flex;
+    justify-content:center;
+  }
+}
+
+.multi-buttons{
+  display:flex;
+  margin-top:20px;
+  .didYouMean{
+    margin:0 auto;
   }
 }

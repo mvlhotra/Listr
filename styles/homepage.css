@@ -1,4 +1,33 @@
-.container .welcome h1 {
+.welcome h1 {
   text-align: center;
+}
+
+.welcome p {
+  text-align: center;
+}
+
+#cat-buttons {
+  margin-top: 20px;
+}
+
+#cat-buttons .bouton {
+  margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.multi-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 20px;
+}
+
+.multi-buttons .didYouMean {
+  margin: 0 auto;
 }
 /*# sourceMappingURL=homepage.css.map */

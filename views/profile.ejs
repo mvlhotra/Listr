@@ -13,25 +13,22 @@
     <% include ./partials/_nav %>
   </header>
 
-  <!-- avatar  -->
-  <div class="row">
-    <div class="col-sm-6">
-      <img src="https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg"
-        class="img-responsive" alt="">
-    </div>
+  <div class="container">
+    <h1>Details</h1>
+    <div class="row mx-auto">
+      <div class="col-sm-12 ">
+        <img src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/68.png">
 
-    <!-- user details info section -->
-    <div class="col-sm-6">
-      <header>Details</header>
-      <a href="/profile/edit" class="button">Edit Profile</a>
-      <ul class="list-group">
-        <li class="list-group-item"><%=ejsTemplate.first_name %></li>
-        <li class="list-group-item"><%=ejsTemplate.last_name %></li>
-        <li class="list-group-item"><%=ejsTemplate.email %></li>
-      </ul>
+
+        <!-- user details info section -->
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-dark">First Name: <%=ejsTemplate.first_name %></li>
+          <li class="list-group-item list-group-item-dark">Last Name: <%=ejsTemplate.last_name %></li>
+          <li class="list-group-item list-group-item-dark">Email Address: <%=ejsTemplate.email %></li>
+        </ul>
+      </div>
+      <a href="/profile/edit/" class="btn btn-secondary mx-auto">Edit Account</a>
     </div>
-  </div>
-  </div>
   </div>
 
 </body>
