@@ -20,7 +20,6 @@ $(document).ready(function () {
   }
 
   updatePageCounts();
-  $('.bouton').fadeIn(1000);
 
   $(document).on('submit', '.didYouMean', function (event) {
     event.preventDefault();
