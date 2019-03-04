@@ -7,6 +7,7 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav justify-content-end">
+      <%if(ejsTemplate.id){%>
       <li class="nav-item">
         <a class="nav-link" href="/lists">Home</a>
       </li>
@@ -14,15 +15,17 @@
         <a class="nav-link" href="/profile">Account</a>
       </li>
       <li class="nav-item">
+        <form><button type="submit" formmethod="POST" formaction="/logout" class="btn logout"
+            style="color:#999d9f; font-weight:700; margin:1px 0 0 -5px;">Logout</button></form>
+      </li>
+      <%}else{%>
+      <li class="nav-item">
         <a class="nav-link" href="/login">Login</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/register">Register</a>
       </li>
-      <li class="nav-item">
-        <form><button type="submit" formmethod="POST" formaction="/logout" class="btn logout"
-            style="color:#999d9f; font-weight:700; margin:1px 0 0 -5px;">Logout</button></form>
-      </li>
+      <%}%>
     </ul>
   </div>
 </nav>
