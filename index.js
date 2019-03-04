@@ -215,8 +215,7 @@ app.post('/sorter', (req, res) => {
 // Add new item to a list
 app.post('/lists/:list', (req, res) => {
   if (req.session.user_id) {
-    console.log(req.body.text);
-    User.insertItem(req.session.user_id, req.body.text, req.params.list)
+    User.insertItem(req.session.user_id, req.body.text, req.params.list.toUpperCase())
       .then(() => {
         res.status(201).send();
       });
