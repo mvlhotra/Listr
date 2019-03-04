@@ -65,8 +65,7 @@ $(document).ready(function () {
     $.post('/sorter', { item: $newItemName.val(), user: $('#EATCount').data('id') })
       .done(function (data) {
         if (data.status === 201) {
-          $newItemName.val('').focus();
-          updatePageCounts();
+          $newItemName.val('').focus().then(updatePageCounts());
         } else if (data === 'No match found') {
           $newItemName.val('').focus();
           alert(data);

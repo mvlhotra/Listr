@@ -215,15 +215,10 @@ app.post('/sorter', (req, res) => {
 // Add new item to a list
 app.post('/lists/:list', (req, res) => {
   if (req.session.user_id) {
-<<<<<<< HEAD
     User.insertItem(req.session.user_id, req.body.text, req.params.list.toUpperCase())
-=======
-    console.log(req.body.text);
-    User.insertItem(req.session.user_id, req.body.text, req.params.list)
->>>>>>> multi-buttons
-      .then(() => {
-        res.status(201).send();
-      });
+    .then(() => {
+      res.status(201).send();
+    });
   } else {
     console.log('Must be a user');
   }
@@ -256,7 +251,6 @@ app.post('/profile/:user', (req, res) => {
     var firstName = req.body.firstName;
     var lastName = req.body.lastName;
     var email = req.body.email;
-    console.log(typeof email);
     User.updateUser(req.session.user_id, email, "email");
     User.updateUser(req.session.user_id, firstName, "first_name");
     User.updateUser(req.session.user_id, lastName, "last_name");
