@@ -217,10 +217,16 @@ app.post('/lists/:list/:item/delete', (req, res) => {
 // Change user profile field
 app.post('/profile/:user', (req, res) => {
   if (req.session.user_id) {
-    User.updateUser(req.session.user_id, req.body.input, req.params.field)
-      .then(() => {
-        res.status(201).send();
-      });
+    var firstName = req.body.firstName;
+    var lastName =  req.body.lastName;
+    var email = req.body.email;
+   console.log(typeof email);
+  User.updateUser(req.session.user_id, email, "email");
+  User.updateUser(req.session.user_id, firstName, "first_name");
+  User.updateUser(req.session.user_id, lastName, "last_name");
+  
+        res.redirect("/profile");
+    
   } else {
     console.log('Must be a user');
   }
