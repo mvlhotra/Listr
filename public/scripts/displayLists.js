@@ -58,6 +58,10 @@ $(document).ready(function () {
           $('.details').html(`<h2>${itemDetails.name}</h2><p>Store: ${itemDetails.Store}/10</p><p>Price: ${itemDetails.Price}</p>`);
           $('.summary').html(`<img src="${itemDetails.img}"> <p>Description${itemDetails.description}</p>`);
         }
+        $('.cat-buttons').html(`<h2>Recategorize</h2><hr/> <form buttonText="Read" newCat="REA"><button type="submit" formmethod="POST" value="REA" name="newCat" formaction="/lists/${cat_code}/${editItemId}" class="btn btn-secondary btn-block">Read</button></form>
+        <form buttonText="Watch" newCat="WAT"><button type="submit" formmethod="POST" value="WAT" name="newCat" formaction="/lists/${cat_code}/${editItemId}" class="btn btn-secondary btn-block">Watch</button></form>
+        <form buttonText="Buy" newCat="BUY"><button type="submit" formmethod="POST" value="BUY" name="newCat" formaction="/lists/${cat_code}/${editItemId}" class="btn btn-secondary btn-block">Buy</button></form>
+        <form buttonText="Eat" newCat="EAT"><button type="submit" formmethod="POST" value="EAT" name="newCat" formaction="/lists/${cat_code}/${editItemId}" class="btn btn-secondary btn-block">Eat</button></form>`)
       });
   });
 
