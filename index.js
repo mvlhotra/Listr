@@ -215,7 +215,12 @@ app.post('/sorter', (req, res) => {
 // Add new item to a list
 app.post('/lists/:list', (req, res) => {
   if (req.session.user_id) {
+<<<<<<< HEAD
     User.insertItem(req.session.user_id, req.body.text, req.params.list.toUpperCase())
+=======
+    console.log(req.body.text);
+    User.insertItem(req.session.user_id, req.body.text, req.params.list)
+>>>>>>> multi-buttons
       .then(() => {
         res.status(201).send();
       });

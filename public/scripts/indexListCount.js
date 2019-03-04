@@ -21,10 +21,46 @@ $(document).ready(function () {
 
   updatePageCounts();
 
+  $(document).on('submit', '.didYouMean', function (event) {
+    event.preventDefault();
+    const cat_code = $(event.target).attr('buttonType');
+    const name = $(event.target).attr('buttonText');
+    $.ajax({
+      url: `/lists/${cat_code}`,
+      type: "POST",
+      data: {
+        text: name,
+      },
+      success: function () {
+        $('.multi .multi-buttons').empty();
+        updatePageCounts();
+      },
+      error: function () {
+        alert('Something went wrong');
+      }
+    });
+  });
+
+  function makeButtons(data) {
+    let multiString = '<p>Did you mean?</p>'
+    data.forEach(function (result) {
+      let typeFull;
+      if (result.type === 'WAT') {
+        typeFull = '(To Watch)';
+      } else if (result.type === 'REA') {
+        typeFull = '(To Read)';
+      } else if (result.type === 'BUY') {
+        typeFull = '(To Buy)';
+      } else {
+        typeFull = '(To Eat)';
+      }
+      multiString += `<form class='didYouMean' buttonText="${result.name}" buttonType="${result.type}" ><button type="submit" formmethod="POST" value="${result.name}" name="text" formaction="/lists/${result.type}" class="btn btn-secondary">${result.name} ${typeFull}</button></form>`
+    });
+    $('.multi .multi-buttons').append(multiString);
+  };
 
   $('.smart-search').submit(function (event) {
     event.preventDefault();
-    let searchHits;
     const $newItemName = $('.smart-search .user-item');
     $.post('/sorter', { item: $newItemName.val(), user: $('#EATCount').data('id') })
       .done(function (data) {
@@ -36,43 +72,10 @@ $(document).ready(function () {
           alert(data);
         } else {
           $newItemName.val('').focus();
-          console.log(data);
-          // Lightbox code here
+          makeButtons(data);
         }
       });
   });
-  // $.ajax({
-  // url: '/sorter',
-  // type: 'POST',
-  // data: {
-  //   item: newItemName.val()
-  // },
-  // success: (function(data) {
-  //   console.log(data)
-  // });
-  // if (searchHits.length === 1) {
-  //   console.log(searchHits);
-  //   $.post(`/lists/${searchHits[0].type}`, searchHits[0].name)
-  //     .done(updatePageCounts());
-  // }
-  // });
-
-  // $postTweet.submit(function (ev) {
-  //   ev.preventDefault();
-  //   $('.errorMsg').slideUp(50);
-  //   if ($tweetText.val() === '' || $tweetText.val() === null) {
-  //     $('.errorMsg').html('Blank tweets are not accepted!');
-  //     $('.errorMsg').slideDown(400);
-  //   } else if ($tweetText.val().length > 140) {
-  //     $('.errorMsg').html('Too many characters!');
-  //     $('.errorMsg').slideDown(400);
-  //   } else {
-  //     $.post('/tweets', $postTweet.serialize())
-  //       .done(loadTweets);
-  //     $tweetText.val('');
-  //     $counter.html(140);
-  //   }
-  // });
 
   const user = $('#EATCount').data('id');
   $.ajax(`/api/listCounts/${user}`, { method: 'GET' }).then(function (content) {
