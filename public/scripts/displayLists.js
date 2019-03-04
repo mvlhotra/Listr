@@ -6,7 +6,7 @@ $(document).ready(function () {
 
   function formatListItems(items) {
     items.forEach((item) => {
-      $('.list-group').append(`<li class="list-group-item" data-itemId =${item.id}><i class="fas fa-check"></i> <span class="item-name" id=#${item.id}>${item.item_name}</span> <span class="edit-delete"><i class="fas fa-times"></i></span>`);
+      $('.list-group').append(`<li class="list-group-item" data-itemId =${item.id}><i class="fas fa-check"></i> <span class="item-name" id=#${item.id}>${item.item_name}</span><i class="fas fa-times"></i>`);
     });
   }
 
@@ -17,7 +17,9 @@ $(document).ready(function () {
   }
 
   getListItems();
+
   $('.list-group').fadeIn();
+
   $('.list-group').on('click', '.fas.fa-check', function (done) {
     const checkedItemId = $(this).parent($(done.target)).attr('data-itemId');
     $.ajax({
@@ -51,9 +53,12 @@ $(document).ready(function () {
   $('.item-input').submit(function (event) {
     event.preventDefault();
     const $newItemName = $('.item-input .item-name');
-    $.post(`/lists/${cat_code}`, { text: $newItemName.val(), user: userId })
+    $.post(`/lists/${cat_code}`, { text: $newItemName.val() })
       .done(function() {
         $('.list-group').empty();
+        $newItemName.val('');
+      })
+      .then(function() {
         getListItems();
       });
   });
