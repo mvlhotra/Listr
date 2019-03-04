@@ -2,6 +2,7 @@ module.exports = () => {
   //  JS function to take inputted list items from user and
   //  determine their type and return JSON object of relevant data
   const request = require('request');
+  const buyAPI = require('./toBuy');
   require('dotenv').config();
 
   //  OMDB api call
@@ -13,12 +14,13 @@ module.exports = () => {
     return new Promise((resolve, reject) => {
       request(apiLookup, (err, response, body) => {
         if (JSON.parse(body).Response === 'True') {
-          // console.log(JSON.parse(body));
           watchInfo = {
             type: 'WAT',
             name: JSON.parse(body).Title,
-            year: JSON.parse(body).Year,
-            imdbRating: JSON.parse(body).imdbRating,
+            released: JSON.parse(body).Released,
+            rating: JSON.parse(body).imdbRating,
+            plot: JSON.parse(body).Plot,
+            img: JSON.parse(body).Poster,
             response: true
           };
           resolve(watchInfo);
@@ -40,7 +42,7 @@ module.exports = () => {
             type: 'REA',
             name: JSON.parse(body).docs[0].title,
             author: JSON.parse(body).docs[0].author_name[0],
-            year: JSON.parse(body).docs[0].first_publish_year,
+            released: JSON.parse(body).docs[0].first_publish_year,
             response: true
           };
           resolve(readInfo);
@@ -66,9 +68,10 @@ module.exports = () => {
           eatInfo = {
             type: 'EAT',
             name: JSON.parse(body).businesses[0].name,
-            yelpRating: JSON.parse(body).businesses[0].rating,
+            rating: JSON.parse(body).businesses[0].rating,
             price: JSON.parse(body).businesses[0].price,
             address: JSON.parse(body).businesses[0].location.display_address.join(' '),
+            img: JSON.parse(body).businesses[0].image_url,
             response: true
           };
           resolve(eatInfo);
@@ -79,21 +82,20 @@ module.exports = () => {
   }
 
   //  Retail API call
-  // function buyFinder(title, callback) {
-  //   const restoTitle = title.split(' ').join('-').toLowerCase();
-  //   const apiLookup = {
-  //     url: `https://api.yelp.com/v3/businesses/search?location=toronto&categories=restaurants,all&term=${restoTitle}&sort_by=best_match`,
-  //     headers: {
-  //       Authorization: `Bearer ${process.env.YELPAPI}`
-  //     }
-  //   };
-  //   console.log(apiLookup.url);
-  //   let restoInfo = {};
-  //   request(apiLookup, (err, response, body) => {
-  //     restoInfo = JSON.parse(body).businesses[0];
-  //     callback(restoInfo);
-  //   });
-  // }
+  function buyFinder(title) {
+    let buyInfo = {};
+    return new Promise((resolve, reject) => {
+      buyAPI.forEach(item => {
+        if (item.name === title) {
+          buyInfo = item;
+          buyInfo.type = 'BUY';
+          buyInfo.response = true;
+          resolve(buyInfo);
+        }
+      });
+      reject(err);
+    });
+  }
 
   async function searchAll(userInput, callback) {
     const searchHits = [];
@@ -101,6 +103,10 @@ module.exports = () => {
     const watchResult = await watchFinder(userInput).then().catch(err => console.log(err));
     const readResult = await readFinder(userInput).then().catch(err => console.log(err));
     const eatResult = await eatFinder(userInput).then().catch(err => console.log(err));
+    const buyResult = await buyFinder(userInput).then().catch(err => console.log(err));
+    if (buyResult) {
+      searchHits.push(buyResult);
+    }
     if (watchResult) {
       searchHits.push(watchResult);
     }
@@ -117,7 +123,7 @@ module.exports = () => {
     watch: watchFinder,
     read: readFinder,
     eat: eatFinder,
-    // buy: buyFinder,
+    buy: buyFinder,
     search: searchAll
   };
 };
@@ -142,3 +148,4 @@ module.exports = () => {
 //     callback(bookInfo);
 //   });
 // }
+
