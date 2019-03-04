@@ -101,28 +101,55 @@ app.get('/lists/:list', (req, res) => {
   }
 });
 
-// Force a login without authentication... Yes we know, bad bad
-// app.get('/login/:email', (req, res) => {
-//   User.findByEmail(req.params.email)
-//     .then((user) => {
-//       req.session.user_id = user[0].id;
-//       res.redirect('/lists');
-//     });
-// });
+app.get('/lists/:list/:item', (req, res) => {
+  User.findItem(req.params.item).then((iName) => {
+    let itemName = iName[0].item_name;
+    console.log(itemName);
+    if (req.params.list === 'WAT') {
+      smartSort.watch(itemName).then((details) => {
+        res.send(details);
+      });
 
-// Force a login
-app.get('/login/:id', (req, res) => {
-  req.session.user_id = req.params.id;
-  res.redirect('/lists');
+    } else if (req.params.list === 'REA') {
+      smartSort.read(itemName).then((details) => {
+        res.send(details);
+      });
+    } else if (req.params.list === 'BUY') {
+      smartSort.buy(itemName).then((details) => {
+        res.send(details);
+      });
+    } else if (req.params.list === 'EAT') {
+      smartSort.eat(itemName).then((details) => {
+        res.send(details);
+      });
+    } else {
+      res.send('not found.');
+    }
+  }).catch(err => { console.log(err) });
 });
+
+// Force a login without authentication... Yes we know, bad bad
+app.get('/login/email', (req, res) => {
+  User.findByEmail(req.query.email)
+    .then((user) => {
+      req.session.user_id = user[0].id;
+      res.redirect('/lists');
+    });
+});
+
+
+// app.get('/login/:id', (req, res) => {
+//   req.session.user_id = req.params.id;
+//   res.redirect('/lists');
+// });
 
 // View user login page
 app.get('/login', (req, res) => {
-  const ejsTemplate = { cookie: req.session };
   if (req.session.user_id) {
     res.redirect('/lists');
   } else {
-    res.render('login', { ejsTemplate: ejsTemplate });
+    res.render('login');
+
   }
 });
 
@@ -163,11 +190,15 @@ app.get('/profile/edit', (req, res) => {
       ejsTemplate.cookie = req.session;
       res.render('profile_edit', { ejsTemplate: ejsTemplate });
     });
+      .then((user) => {
+        ejsTemplate = user[0];
+        ejsTemplate.cookie = req.session;
+        res.render('profile_edit', { ejsTemplate: ejsTemplate });
+      });
   }
 });
 
 app.post('/sorter', (req, res) => {
-  console.log(req.body.item);
   smartSort.search(req.body.item).then((searchHits) => {
     console.log(searchHits.length);
     if (searchHits.length === 1) {
@@ -217,10 +248,16 @@ app.post('/lists/:list/:item/delete', (req, res) => {
 // Change user profile field
 app.post('/profile/:user', (req, res) => {
   if (req.session.user_id) {
-    User.updateUser(req.session.user_id, req.body.input, req.params.field)
-      .then(() => {
-        res.status(201).send();
-      });
+    var firstName = req.body.firstName;
+    var lastName = req.body.lastName;
+    var email = req.body.email;
+    console.log(typeof email);
+    User.updateUser(req.session.user_id, email, "email");
+    User.updateUser(req.session.user_id, firstName, "first_name");
+    User.updateUser(req.session.user_id, lastName, "last_name");
+
+    res.redirect("/profile");
+
   } else {
     console.log('Must be a user');
   }

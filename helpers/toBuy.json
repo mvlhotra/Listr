@@ -1,0 +1,79 @@
+[
+  {
+    "name": "Thermos",
+    "Store": "Walmart",
+    "Price": "$10.95",
+    "img": "https://www.thermos.com/media/catalog/product/cache/1/small_image/454x/602f0fa2c1f0d1ba5e241f914e856ff9/s/k/sk1005cr_iso_front_brushedlid_mm_1.1549316895.jpg",
+    "description": "Your coffee will stay nice and toasty with this mug!"
+  },
+  {
+    "name": "Contigo Mug",
+    "Store": "Walmart",
+    "Price": "$12.00",
+    "img": "https://www.gocontigo.com/media/catalog/product/cache/19/image/425x/040ec09b1e35df139433887a97daa66f/b/a/baybiscay_0001_front_1.jpg",
+    "description": "Your coffee will stay nice and toasty with this mug!"
+  },
+  {
+    "name": "iPhone",
+    "Store": "Apple Store",
+    "Price": "$999.99",
+    "img": "https://staticshop.o2.co.uk/product/images/iphone-x-space-grey-sku-header.png",
+    "description": "This changes everything. AGAIN. Lmao"
+  },
+  {
+    "name": "Dress Socks",
+    "Store": "Hudson's Bay",
+    "Price": "$6.99",
+    "img": "https://i.ibb.co/xSFS7Zd/Screen-Shot-2019-03-03-at-6-57-08-PM.png",
+    "description": "Cool socks, with some light humor. What more could you ask for?"
+  },
+  {
+    "name": "Blue Denim Jeans",
+    "Store": "Dutil Denim",
+    "Price": "$159.99",
+    "img": "https://s.hdnux.com/photos/71/44/04/15089945/3/920x920.jpg",
+    "description": "Hahahaha these are wild. Walkin around the street like zoop zoop zoop. Try not to get caught them caught on the TTC doors though."
+  },
+  {
+    "name": "Amazon 50 Dollar Gift Card",
+    "Store": "Amazon",
+    "Price": "$50.00",
+    "img": "https://www.mygiftcardsupply.com/wp-content/uploads/2016/03/amazon-card-50.png",
+    "description": "Support BIG BEZOS!"
+  },
+  {
+    "name": "Cowboy Hat",
+    "Store": "H&M",
+    "Price": "$12.95",
+    "img": "https://cdn.shopify.com/s/files/1/1061/1924/products/Emoji_Icon_-_Cowboy_emoji_grande.png",
+    "description": "YEEHAW. Ready to hit the stampede."
+  },
+  {
+    "name": "Nike Runners",
+    "Store": "Foot Locker",
+    "Price": "$84.99",
+    "img": "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/tqc0kuelxfifqxzspaso/air-max-270-shoe-ptpZcg.jpg",
+    "description": "Nike's on my feet make my cypher complete."
+  },
+  {
+    "name": "Paper Clips",
+    "Store": "Staples",
+    "Price": "$0.99",
+    "img": "https://images-na.ssl-images-amazon.com/images/I/31ljbTGe2tL.jpg",
+    "description": "Remember that annoying thing in Microsoft Word that would pop up if you needed help? This is the real thing."
+  },
+  {
+    "name": "Dollarama Sponges",
+    "Store": "Dollarama",
+    "Price": "$1.50",
+    "img": "http://www.howtocleanstuff.net/wp-content/uploads/sponge.jpg",
+    "description": "You know darn well you gotta scrub those dishes you've left in the sink for a whooole week."
+  },
+  {
+    "name": "Wonder White Bread",
+    "Store": "Loblaws",
+    "Price": "$2.68",
+    "img": "https://1.bp.blogspot.com/-BswVhlg6UjM/WG0ZGFI-71I/AAAAAAAARcE/1OMDKeoASfwD0mEt6d03CKVd8jKmSLL5wCLcB/s1600/product-classic-white.png",
+    "description": "Let's get this bread, let's OBTAIN this GRAIN, let's YEET this WHEAT!"
+  }
+]

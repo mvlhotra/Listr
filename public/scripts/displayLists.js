@@ -6,7 +6,7 @@ $(document).ready(function () {
 
   function formatListItems(items) {
     items.forEach((item) => {
-      $('.list-group').append(`<li class="list-group-item" data-itemId =${item.id}><i class="fas fa-check"></i> <span class="item-name">${item.item_name}</span> <span class="edit-delete"><i class="fas fa-times"></i></span>`);
+      $('.list-group').append(`<li class="list-group-item" data-itemId =${item.id}><i class="fas fa-check"></i> <span class="item-name" id=#${item.id}>${item.item_name}</span> <span class="edit-delete"><i class="fas fa-times"></i></span>`);
     });
   }
 
@@ -46,7 +46,12 @@ $(document).ready(function () {
 
   $('.list-group').on('click', '.item-name', function (done) {
     const editItemId = $(this).parent($(done.target)).attr('data-itemId');
-    console.log(editItemId);
+    $.get(`/lists/${cat_code}/${editItemId}`)
+      .done(function (itemDetails) {
+        console.log(itemDetails);
+      });
+
+
     // $.ajax({
     //   type: 'POST',
     //   url: `${cat_code}/${checkedItemId}`,
