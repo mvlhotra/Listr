@@ -6,7 +6,7 @@ $(document).ready(function () {
 
   function formatListItems(items) {
     items.forEach((item) => {
-      $('.list-group').append(`<li class="list-group-item" data-itemId =${item.id}><i class="fas fa-check"></i> <span class="item-name" id=#${item.id}>${item.item_name}</span> <span class="edit-delete"><i class="fas fa-times"></i></span>`);
+      $('.list-group').append(`<li class="list-group-item" data-itemId =${item.id}><i class="fas fa-check"></i> <span class="item-name" id=#${item.id}>${item.item_name}</span><i class="fas fa-times"></i>`);
     });
   }
 
@@ -17,7 +17,9 @@ $(document).ready(function () {
   }
 
   getListItems();
+
   $('.list-group').fadeIn();
+
   $('.list-group').on('click', '.fas.fa-check', function (done) {
     const checkedItemId = $(this).parent($(done.target)).attr('data-itemId');
     $.ajax({
@@ -44,16 +46,34 @@ $(document).ready(function () {
     const editItemId = $(this).parent($(done.target)).attr('data-itemId');
     $.get(`/lists/${cat_code}/${editItemId}`)
       .done(function (itemDetails) {
-        console.log(itemDetails);
+        if (cat_code === 'REA') {
+          $('.details').html(`<h2>${itemDetails.name}</h2><p>Author: ${itemDetails.author}</p><p>Released: ${itemDetails.released}</p>`);
+        } else if (cat_code === 'EAT') {
+          $('.details').html(`<h2>${itemDetails.name}</h2><p>Rating: ${itemDetails.rating}</p><p>Price: ${itemDetails.price}</p>`);
+          $('.summary').html(`<img src="${itemDetails.img}" width="250" height="300"> <p>Address:${itemDetails.address}</p>`);
+        } else if (cat_code === 'WAT') {
+          $('.details').html(`<h2>${itemDetails.name}</h2><p>Rating: ${itemDetails.rating}/10</p><p>Released: ${itemDetails.released}</p>`);
+          $('.summary').html(`<img src="${itemDetails.img}" width="250" height="300"> <p>Synopsis:${itemDetails.plot}</p>`);
+        } else if (cat_code === 'BUY') {
+          $('.details').html(`<h2>${itemDetails.name}</h2><p>Store: ${itemDetails.Store}/10</p><p>Price: ${itemDetails.Price}</p>`);
+          $('.summary').html(`<img src="${itemDetails.img}"> <p>Description${itemDetails.description}</p>`);
+        }
+        $('.cat-buttons').html(`<h2>Recategorize</h2><hr/> <form buttonText="Read" newCat="REA"><button type="submit" formmethod="POST" value="REA" name="newCat" formaction="/lists/${cat_code}/${editItemId}" class="btn btn-secondary btn-block">Read</button></form>
+        <form buttonText="Watch" newCat="WAT"><button type="submit" formmethod="POST" value="WAT" name="newCat" formaction="/lists/${cat_code}/${editItemId}" class="btn btn-secondary btn-block">Watch</button></form>
+        <form buttonText="Buy" newCat="BUY"><button type="submit" formmethod="POST" value="BUY" name="newCat" formaction="/lists/${cat_code}/${editItemId}" class="btn btn-secondary btn-block">Buy</button></form>
+        <form buttonText="Eat" newCat="EAT"><button type="submit" formmethod="POST" value="EAT" name="newCat" formaction="/lists/${cat_code}/${editItemId}" class="btn btn-secondary btn-block">Eat</button></form>`)
       });
   });
 
   $('.item-input').submit(function (event) {
     event.preventDefault();
     const $newItemName = $('.item-input .item-name');
-    $.post(`/lists/${cat_code}`, { text: $newItemName.val(), user: userId })
-      .done(function() {
+    $.post(`/lists/${cat_code}`, { text: $newItemName.val() })
+      .done(function () {
         $('.list-group').empty();
+        $newItemName.val('');
+      })
+      .then(function () {
         getListItems();
       });
   });

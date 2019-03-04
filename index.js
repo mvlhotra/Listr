@@ -215,7 +215,7 @@ app.post('/sorter', (req, res) => {
 // Add new item to a list
 app.post('/lists/:list', (req, res) => {
   if (req.session.user_id) {
-    User.insertItem(req.session.user_id, req.body.text, req.params.list)
+    User.insertItem(req.session.user_id, req.body.text, req.params.list.toUpperCase())
       .then(() => {
         res.status(201).send();
       });
@@ -227,9 +227,10 @@ app.post('/lists/:list', (req, res) => {
 // Change list item category
 app.post('/lists/:list/:item', (req, res) => {
   if (req.session.user_id) {
+    console.log(req.params.list);
     User.updateItem(req.session.user_id, req.params.item, req.params.list.toUpperCase(), req.body.newCat.toUpperCase())
       .then(() => {
-        res.status(201).send();
+        res.redirect(`/lists/${req.params.list.toUpperCase()}`);
       });
   } else {
     console.log('Must be a user');
@@ -251,7 +252,6 @@ app.post('/profile/:user', (req, res) => {
     var firstName = req.body.firstName;
     var lastName = req.body.lastName;
     var email = req.body.email;
-    console.log(typeof email);
     User.updateUser(req.session.user_id, email, "email");
     User.updateUser(req.session.user_id, firstName, "first_name");
     User.updateUser(req.session.user_id, lastName, "last_name");
