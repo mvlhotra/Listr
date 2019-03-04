@@ -46,7 +46,18 @@ $(document).ready(function () {
     const editItemId = $(this).parent($(done.target)).attr('data-itemId');
     $.get(`/lists/${cat_code}/${editItemId}`)
       .done(function (itemDetails) {
-        console.log(itemDetails);
+        if (cat_code === 'REA') {
+          $('.details').html(`<h2>${itemDetails.name}</h2><p>Author: ${itemDetails.author}</p><p>Released: ${itemDetails.released}</p>`);
+        } else if (cat_code === 'EAT') {
+          $('.details').html(`<h2>${itemDetails.name}</h2><p>Rating: ${itemDetails.rating}</p><p>Price: ${itemDetails.price}</p>`);
+          $('.summary').html(`<img src="${itemDetails.img}" width="250" height="300"> <p>Address:${itemDetails.address}</p>`);
+        } else if (cat_code === 'WAT') {
+          $('.details').html(`<h2>${itemDetails.name}</h2><p>Rating: ${itemDetails.rating}/10</p><p>Released: ${itemDetails.released}</p>`);
+          $('.summary').html(`<img src="${itemDetails.img}" width="250" height="300"> <p>Synopsis:${itemDetails.plot}</p>`);
+        } else if (cat_code === 'BUY') {
+          $('.details').html(`<h2>${itemDetails.name}</h2><p>Store: ${itemDetails.Store}/10</p><p>Price: ${itemDetails.Price}</p>`);
+          $('.summary').html(`<img src="${itemDetails.img}"> <p>Description${itemDetails.description}</p>`);
+        }
       });
   });
 
@@ -54,11 +65,11 @@ $(document).ready(function () {
     event.preventDefault();
     const $newItemName = $('.item-input .item-name');
     $.post(`/lists/${cat_code}`, { text: $newItemName.val() })
-      .done(function() {
+      .done(function () {
         $('.list-group').empty();
         $newItemName.val('');
       })
-      .then(function() {
+      .then(function () {
         getListItems();
       });
   });
