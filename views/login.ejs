@@ -4,7 +4,9 @@
 <head>
   <% include ./partials/_header %>
   <link rel="stylesheet" href="../styles/login.css" type="text/css" />
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
 </head>
+
 <body>
   <header>
     <% include ./partials/_nav %>
@@ -16,7 +18,8 @@
         <i class="fas fa-check-square"></i>
         <h1>Login to Listr</h1>
         <label for="inputEmail" class="sr-only">Email</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus name="email">
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus
+          name="email">
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
         <div class="checkbox mb-3">
           <label>

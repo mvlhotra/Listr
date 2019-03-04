@@ -131,11 +131,11 @@ app.get('/lists/:list/:item', (req, res) => {
 // Force a login without authentication... Yes we know, bad bad
 app.get('/login/email', (req, res) => {
   User.findByEmail(req.query.email)
-  .then((user) => {
-    req.session.user_id = user[0].id;
-    res.redirect('/lists');
-  });
-});  
+    .then((user) => {
+      req.session.user_id = user[0].id;
+      res.redirect('/lists');
+    });
+});
 
 
 // app.get('/login/:id', (req, res) => {
@@ -145,23 +145,10 @@ app.get('/login/email', (req, res) => {
 
 // View user login page
 app.get('/login', (req, res) => {
-<<<<<<< HEAD
-  let ejsTemplate;
   if (req.session.user_id) {
     res.redirect('/lists');
   } else {
-    User.findByID(req.session.user_id)
-      .then((user) => {
-        ejsTemplate = user[0];
-        ejsTemplate.cookie = req.session;
-        res.render('login', { ejsTemplate: ejsTemplate });
-      });
-=======
-  if (req.session.user_id) {
-    res.redirect('/lists');
-  } else {
-        res.render('login');
->>>>>>> 37e54f039d8a72901485470c44bba3d3e616288f
+    res.render('login');
 
   }
 });
