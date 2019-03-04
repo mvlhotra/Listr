@@ -145,11 +145,11 @@ app.get('/login/email', (req, res) => {
 
 // View user login page
 app.get('/login', (req, res) => {
+  const ejsTemplate = {};
   if (req.session.user_id) {
     res.redirect('/lists');
   } else {
-    res.render('login');
-
+    res.render('login', {ejsTemplate: ejsTemplate });
   }
 });
 
