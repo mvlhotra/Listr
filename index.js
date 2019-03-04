@@ -189,7 +189,7 @@ app.get('/profile/edit', (req, res) => {
       ejsTemplate = user[0];
       ejsTemplate.cookie = req.session;
       res.render('profile_edit', { ejsTemplate: ejsTemplate });
-    });
+    })
       .then((user) => {
         ejsTemplate = user[0];
         ejsTemplate.cookie = req.session;
@@ -215,7 +215,7 @@ app.post('/sorter', (req, res) => {
 // Add new item to a list
 app.post('/lists/:list', (req, res) => {
   if (req.session.user_id) {
-    User.insert(req.session.user_id, req.body.text, req.params.list)
+    User.insertItem(req.session.user_id, req.body.text, req.params.list)
       .then(() => {
         res.status(201).send();
       });

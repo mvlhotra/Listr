@@ -15,9 +15,9 @@ $(document).ready(function () {
       formatListItems(content);
     });
   }
+
   getListItems();
   $('.list-group').fadeIn();
-
   $('.list-group').on('click', '.fas.fa-check', function (done) {
     const checkedItemId = $(this).parent($(done.target)).attr('data-itemId');
     $.ajax({
@@ -27,8 +27,6 @@ $(document).ready(function () {
       $('.list-group').empty();
       getListItems();
     });
-
-
   });
 
   $('.list-group').on('click', '.fas.fa-times', function (done) {
@@ -40,8 +38,6 @@ $(document).ready(function () {
       $('.list-group').empty();
       getListItems();
     });
-
-
   });
 
   $('.list-group').on('click', '.item-name', function (done) {
@@ -50,20 +46,15 @@ $(document).ready(function () {
       .done(function (itemDetails) {
         console.log(itemDetails);
       });
-
-
-    // $.ajax({
-    //   type: 'POST',
-    //   url: `${cat_code}/${checkedItemId}`,
-    // }).done(function () {
-    //   $('.list-group').empty();
-    //   getListItems();
-    // });
-
-
   });
 
-
+  $('.item-input').submit(function (event) {
+    event.preventDefault();
+    const $newItemName = $('.item-input .item-name');
+    $.post(`/lists/${cat_code}`, { text: $newItemName.val(), user: userId })
+      .done(function() {
+        $('.list-group').empty();
+        getListItems();
+      });
+  });
 });
-
-
