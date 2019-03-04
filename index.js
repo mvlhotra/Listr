@@ -101,6 +101,28 @@ app.get('/lists/:list', (req, res) => {
   }
 });
 
+app.get('/lists/:list/:item', (req, res) => {
+
+  switch (req.params.list) {
+    case 'WAT':
+      smartSort.watch(req.query.name).then((details) => {
+        res.send(details);
+      });
+    case 'REA':
+      smartSort.read(req.query.name).then((details) => {
+        res.send(details);
+      });
+    case 'BUY':
+      smartSort.buy(req.query.name).then((details) => {
+        res.send(details);
+      });
+    case 'EAT':
+      smartSort.eat(req.query.name).then((details) => {
+        res.send(details);
+      });
+  }
+});
+
 // Force a login without authentication... Yes we know, bad bad
 // app.get('/login/:email', (req, res) => {
 //   User.findByEmail(req.params.email)
@@ -173,7 +195,6 @@ app.get('/profile/edit', (req, res) => {
 });
 
 app.post('/sorter', (req, res) => {
-  console.log(req.body.item);
   smartSort.search(req.body.item).then((searchHits) => {
     console.log(searchHits.length);
     if (searchHits.length === 1) {
