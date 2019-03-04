@@ -227,9 +227,10 @@ app.post('/lists/:list', (req, res) => {
 // Change list item category
 app.post('/lists/:list/:item', (req, res) => {
   if (req.session.user_id) {
+    console.log(req.params.list);
     User.updateItem(req.session.user_id, req.params.item, req.params.list.toUpperCase(), req.body.newCat.toUpperCase())
       .then(() => {
-        res.status(201).send();
+        res.redirect(`/lists/${req.params.list.toUpperCase()}`);
       });
   } else {
     console.log('Must be a user');
