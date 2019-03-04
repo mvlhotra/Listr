@@ -1,16 +1,4 @@
-.container {
+.container .welcome h1 {
   text-align: center;
-}
-
-.container .buttons {
-  text-align: center;
-}
-
-.container .buttons .btn {
-  min-width: 200px;
-}
-
-.container .buttons .col-sm-12 {
-  margin-top: 300px;
 }
 /*# sourceMappingURL=homepage.css.map */
