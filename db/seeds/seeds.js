@@ -78,7 +78,7 @@ exports.seed = function (knex, Promise) {
         knex('item').insert({ cat_code: 'REA', item_name: 'Catcher in the Rye', updated: '2018-02-28' }),
         knex('item').insert({ cat_code: 'WAT', item_name: 'Napoleon Dynamite', updated: '2018-02-28' }),
         knex('item').insert({ cat_code: 'EAT', item_name: 'Tacos El Asador', updated: '2018-02-28' }),
-        knex('item').insert({ cat_code: 'BUY', item_name: 'Mittens', updated: '2018-02-28' }),
+        knex('item').insert({ cat_code: 'BUY', item_name: 'Nike Runners', updated: '2018-02-28' }),
         knex('item').insert({ cat_code: 'REA', item_name: 'Americanah', updated: '2018-02-28' }),
         knex('item').insert({ cat_code: 'WAT', item_name: 'Sound of Music', updated: '2018-02-28' }),
         knex('item').insert({ cat_code: 'EAT', item_name: 'Banh Mi Boys', updated: '2018-02-28' }),
