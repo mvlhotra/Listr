@@ -102,33 +102,27 @@ app.get('/lists/:list', (req, res) => {
 });
 
 // Force a login without authentication... Yes we know, bad bad
-// app.get('/login/:email', (req, res) => {
-//   User.findByEmail(req.params.email)
-//     .then((user) => {
-//       req.session.user_id = req.params.email;
-//       res.redirect('/lists');
-//     });
-// });
+app.get('/login/email', (req, res) => {
+  User.findByEmail(req.query.email)
+  .then((user) => {
+    req.session.user_id = user[0].id;
+    res.redirect('/lists');
+  });
+});  
 
-// Force a login
-app.get('/login/:id', (req, res) => {
-  req.session.user_id = req.params.id;
-  res.redirect('/lists');
-});
+
+// app.get('/login/:id', (req, res) => {
+//   req.session.user_id = req.params.id;
+//   res.redirect('/lists');
+// });
 
 // View user login page
 app.get('/login', (req, res) => {
- let ejsTemplate;
   if (req.session.user_id) {
     res.redirect('/lists');
   } else {
-    User.findByID(req.session.user_id)
-      .then((user) => {
-        ejsTemplate = user[0];
-        ejsTemplate.cookie = req.session;
-        res.render('login', { ejsTemplate: ejsTemplate });
-      });
-   
+        res.render('login');
+
   }
 });
 
