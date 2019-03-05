@@ -63,7 +63,7 @@ $(document).ready(function () {
           $('.summary').html(`<img src="${itemDetails.img}" width="250" height="300"> <p>Synopsis:${itemDetails.plot}</p>`);
         } else if (cat_code === 'BUY') {
           $('.details').html(`<h2>${itemDetails.name}</h2><p><strong>Store:</strong> ${itemDetails.Store}</p><p>Price: ${itemDetails.Price}</p>`);
-          $('.summary').html(`<img src="${itemDetails.img}"> <p><strong>Description:</strong> ${itemDetails.description}</p>`);
+          $('.summary').html(`<img src="${itemDetails.img}" width="250" height="300"> <p><strong>Description:</strong> ${itemDetails.description}</p>`);
         }
         $('.cat-buttons').html(`<h2>Recategorize</h2><hr/> <form buttonText="Read" newCat="REA"><button type="submit" formmethod="POST" value="REA" name="newCat" formaction="/lists/${cat_code}/${editItemId}" class="btn btn-secondary btn-block">Read</button></form>
         <form buttonText="Watch" newCat="WAT"><button type="submit" formmethod="POST" value="WAT" name="newCat" formaction="/lists/${cat_code}/${editItemId}" class="btn btn-secondary btn-block">Watch</button></form>
